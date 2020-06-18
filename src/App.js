@@ -48,11 +48,11 @@ class App extends React.Component {
               {this.state.models.map((elem, idx) => {
                 console.log(elem)
                 return (
-                  <Route key={idx.toString()} path={elem.name}>
+                  <Route key={idx.toString()} path={`/${elem.path}`}>
                     <NotebookComp modelDir={elem.name} />
                   </Route>
                 )
-              })} 
+              })}
             </Switch>
           </div>
         </Router>

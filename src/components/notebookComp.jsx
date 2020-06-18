@@ -37,7 +37,6 @@ class NotebookComp extends React.Component {
         </>
       );
     } else {
-
       return (
         <>
           <h1>Preprocessing stage</h1>
@@ -49,5 +48,4 @@ class NotebookComp extends React.Component {
     }
   }
 }
-
 export default NotebookComp;
