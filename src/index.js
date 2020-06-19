@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Navbar from './components/navbar/navbar'
 import './global.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Navbar />
-    {/* <App /> */}
+    <div className='render'>
+      <App />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

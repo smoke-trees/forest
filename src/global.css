@@ -2,6 +2,7 @@
 
 body{
     margin: 0;
+    padding: 0;
     font-family: 'Source Sans Pro', sans-serif;
     height: 200vh;
 }
@@ -9,4 +10,13 @@ body{
 :root{
     --text-color: #8C8C8C;
     --main-lay: #40AFD1;
+}
+
+.render{
+    width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+    width: -moz-max-content;    /* Firefox/Gecko */
+    width: -webkit-max-content;
+    margin: auto;
+    top: 64px;
+    position: relative;
 }

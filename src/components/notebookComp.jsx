@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BASE_PATH = 'https://raw.githubusercontent.com/smoke-trees/model-zoo/master';
+const BASE_PATH = 'https://raw.githubusercontent.com/smoke-trees/model-zoo/master/models';
 
 class NotebookComp extends React.Component {
   constructor (props) {
@@ -20,6 +20,7 @@ class NotebookComp extends React.Component {
         const usagePromise = fetch(`${BASE_PATH}/${this.props.modelDir}/${config.Usage}`).then(res => res.text());
 
         Promise.all([prepPromise, usagePromise]).then(values => {
+          console.log(values[0],values[1])
           this.setState({
             preprocess: values[0],
             usage: values[1],
