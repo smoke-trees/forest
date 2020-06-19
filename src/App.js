@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.github.com/repos/smoke-trees/model-zoo/contents').then(res => res.json())
+    fetch('https://api.github.com/repos/smoke-trees/model-zoo/contents/models').then(res => res.json())
       .then(data => {
         this.setState({
           models: data.filter(elem => elem.type === 'dir')
@@ -39,7 +39,7 @@ class App extends React.Component {
             <ul>
               {this.state.models.map((elem, idx) => {
                 return (<li key={idx.toString()}>
-                  <Link to={`/${elem.name}`}>{elem.name}</Link>
+                  <Link to={`/${elem.path}`}>{elem.name}</Link>
                 </li>)
               })}
             </ul>
@@ -48,11 +48,11 @@ class App extends React.Component {
               {this.state.models.map((elem, idx) => {
                 console.log(elem)
                 return (
-                  <Route key={idx.toString()} path={elem.name}>
+                  <Route key={idx.toString()} path={`/${elem.path}`}>
                     <NotebookComp modelDir={elem.name} />
                   </Route>
                 )
-              })} 
+              })}
             </Switch>
           </div>
         </Router>
