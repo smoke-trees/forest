@@ -1,9 +1,8 @@
 import React from 'react';
 
-import NotebookComp from '../../components/notebookComp';
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Route, Switch, Link} from "react-router-dom";
-import {ProgressIndicatorComponent} from "../../components";
+import {NotebookComponent, ProgressIndicatorComponent} from "../../components";
 
 const styles = () => ({});
 
@@ -47,7 +46,7 @@ class App extends React.Component {
                             console.log(elem)
                             return (
                                 <Route key={idx.toString()} path={`/${elem.path}`}>
-                                    <NotebookComp modelDir={elem.name}/>
+                                    <NotebookComponent modelDir={elem.name}/>
                                 </Route>
                             )
                         })}

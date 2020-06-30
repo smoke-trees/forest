@@ -1,9 +1,9 @@
 import React from 'react';
-import {ProgressIndicatorComponent} from "./progressIndicator";
+import {ProgressIndicatorComponent} from "../progressIndicator";
 
 const BASE_PATH = 'https://raw.githubusercontent.com/smoke-trees/model-zoo/master/models';
 
-class NotebookComp extends React.Component {
+class NotebookComponent extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -48,4 +48,5 @@ class NotebookComp extends React.Component {
     }
   }
 }
-export default NotebookComp;
+
+export default NotebookComponent;
