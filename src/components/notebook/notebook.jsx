@@ -1,7 +1,7 @@
 import React from 'react';
 import {ProgressIndicatorComponent} from "../progressIndicator";
 
-const BASE_PATH = 'https://raw.githubusercontent.com/smoke-trees/model-zoo/master';
+const BASE_PATH = "https://raw.githubusercontent.com/smoke-trees/model-zoo/master";
 
 class NotebookComponent extends React.Component {
     constructor(props) {
