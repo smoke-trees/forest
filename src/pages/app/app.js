@@ -17,7 +17,6 @@ class App extends React.Component {
     componentDidMount() {
         fetch('https://api.github.com/repos/smoke-trees/model-zoo/contents/').then(res => res.json())
             .then(data => {
-                console.log(data);
                 this.setState({
                     models: data.filter(elem => elem.type === 'dir')
                 })
