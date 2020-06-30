@@ -1,4 +1,5 @@
 import React from 'react';
+import {ProgressIndicatorComponent} from "./progressIndicator";
 
 const BASE_PATH = 'https://raw.githubusercontent.com/smoke-trees/model-zoo/master/models';
 
@@ -33,9 +34,7 @@ class NotebookComp extends React.Component {
   render () {
     if (this.state.config === null) {
       return (
-        <>
-          <h1>Loading</h1>
-        </>
+        <ProgressIndicatorComponent/>
       );
     } else {
       return (

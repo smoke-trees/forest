@@ -3,8 +3,9 @@ import React from 'react';
 import NotebookComp from '../../components/notebookComp';
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Route, Switch, Link} from "react-router-dom";
+import {ProgressIndicatorComponent} from "../../components";
 
-const styles = (theme) => ({});
+const styles = () => ({});
 
 class App extends React.Component {
     constructor(props) {
@@ -27,9 +28,7 @@ class App extends React.Component {
     render() {
         if (this.state.models.length === 0) {
             return (
-                <>
-                    <h1>Loading</h1>
-                </>
+                <ProgressIndicatorComponent/>
             )
         } else {
 
