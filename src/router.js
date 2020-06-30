@@ -2,7 +2,7 @@ import React from "react";
 
 import {App} from "./pages";
 import {Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Switch} from "react-router-dom";
 
 class AppRouter extends React.Component {
     constructor(props) {
@@ -27,15 +27,16 @@ class AppRouter extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <Route path="/" component={App}/>
-                {
-                    this.state.models.map((elem, idx) => {
-                    return (
-                        <Route key={idx.toString()} path={`/${elem.path}`}>
-                            <App modelDir={elem.name}/>
-                        </Route>
-                    )
-                })}
+                <Switch>
+                    {this.state.models.map((elem, idx) => {
+                        return (
+                            <Route key={idx.toString()} path={`/${elem.path}`}>
+                                <App modelDir={elem.name} path={elem.path}/>
+                            </Route>
+                        )
+                    })}
+                    <Route path="/" component={App}/>
+                </Switch>
             </BrowserRouter>
         )
     }

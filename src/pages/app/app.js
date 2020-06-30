@@ -12,10 +12,17 @@ import "./app.scss";
 
 const styles = () => ({
     leftGrid: {
-        width: "300px",
+        width: "250px",
         height: "100vh",
-        overflowY: "auto",
         backgroundColor: "#2a2a2a"
+    },
+    rightGrid: {
+        width: "calc(100vw - 265px)",
+        height: "calc(100vh - 20px)",
+        overflowY: "auto"
+    },
+    parentGrid: {
+
     },
     listItem: {
         "&:hover": {
@@ -69,27 +76,30 @@ class App extends React.Component {
 
         return (
             <div>
-                <Grid container>
-                    <Grid container direction="column" className={classes.leftGrid}>
-                        <List>
-                            {models.map((elem) => {
-                                const onItemClick = (elem) => {
-                                    setRedirect(elem.path);
-                                }
+                <Grid container className={classes.parentGrid}>
+                    <Grid item>
+                        <Grid container direction="column" className={classes.leftGrid}>
+                            <List>
+                                {models.map((elem) => {
+                                    const onItemClick = (elem) => {
+                                        setRedirect(elem.path);
+                                    }
 
-                                return (
-                                    <ListItem button className={classes.listItem} onClick={() => onItemClick(elem)}>
-                                        <ListItemText>
+                                    return (
+                                        <ListItem button className={classes.listItem} onClick={() => onItemClick(elem)}>
+                                            <ListItemText>
                                             <span className="app-list-item-text">
                                                 {elem.name}
                                             </span>
-                                        </ListItemText>
-                                    </ListItem>
-                                )
-                            })}
-                        </List>
+                                            </ListItemText>
+                                        </ListItem>
+                                    )
+                                })}
+                            </List>
+                        </Grid>
                     </Grid>
-                    <Grid item>
+
+                    <Grid item className={classes.rightGrid}>
                         {injectComponent()}
                     </Grid>
                 </Grid>
@@ -103,7 +113,7 @@ class App extends React.Component {
                 <ProgressIndicatorComponent/>
             )
         } else {
-            if (this.state.redirect) {
+            if (this.state.redirect && this.state.redirect !== this.props.path) {
                 return <Redirect to={this.state.redirect}/>
             } else {
                 return (
