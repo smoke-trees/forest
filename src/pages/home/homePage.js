@@ -9,6 +9,7 @@ import InputBase from "@material-ui/core/InputBase";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import {isMobile} from "react-device-detect";
 
 
 const styles = () => ({});
@@ -30,12 +31,29 @@ class HomePage extends React.Component {
         this.state = {
             tabBar: {
                 value: -1
-            }
+            },
+            isDesktop: !isMobile
         }
 
         this.setTabBar = (tabBar) => {
             this.setState({tabBar: tabBar});
         }
+
+        this.setDesktop = (val) => {
+            this.setState({isDesktop: val});
+        }
+
+        this.windowUpdater = () => {
+            if (window.innerWidth < 1300 || isMobile) {
+                this.setDesktop(false);
+            } else {
+                this.setDesktop(true);
+            }
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.windowUpdater);
     }
 
     backgroundVectors() {
@@ -88,13 +106,36 @@ class HomePage extends React.Component {
         )
     }
 
-    render() {
+    body() {
+        return (
+            <div>
+                <SmokeForestLogo className="home-page-logo-large"/>
+                <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
+                <button className="home-page-body-button"> Forest </button>
+            </div>
+        )
+    }
+
+    desktop() {
         return (
             <div>
                 {this.backgroundVectors()}
                 {this.appBar()}
+                {this.body()}
             </div>
         )
+    }
+
+    render() {
+        if (this.state.isDesktop) {
+            return this.desktop();
+        } else {
+            return (
+                <div>
+                    <h1> Mobile version under construction </h1>
+                </div>
+            )
+        }
     }
 }
 

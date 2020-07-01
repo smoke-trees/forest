@@ -6,6 +6,7 @@ body{
     font-family: 'Source Sans Pro', sans-serif;
     height: 100vh !important;
     overflow: hidden !important;
+    min-width: 1024px;
 }
 
 :root{

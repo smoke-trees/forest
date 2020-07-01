@@ -64,8 +64,8 @@
 
 .home-page-tab-bar {
   position: absolute;
-  left: 74vw;
-  top: 10px;
+  left: calc(100vw - 480px);
+  top: 0;
 }
 
 .home-page-tab-bar .PrivateTabIndicator-colorPrimary-3 {
@@ -91,6 +91,68 @@
   font-weight: 600 !important;
   font-size: 16px !important;
   line-height: 20px !important;
-  min-height: 54px !important;
+  min-height: 64px !important;
   letter-spacing: 0.05em !important;
+}
+
+.home-page-logo-large {
+  width: 541px;
+  height: 70px;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+}
+
+.home-page-body-text {
+  position: absolute;
+  width: 687px;
+  height: 60px;
+  left: 300px;
+  top: 376px;
+
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #6E6E6E;
+}
+
+.home-page-body-button {
+  padding: 0;
+  border: none;
+  background: #40AFD1;
+  color: #FFFFFF;
+  width: 138px;
+  height: 49px;
+
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.11em;
+
+  box-shadow: 2px 2px 4px #C4C4C4;
+  border-radius: 4px;
+
+  position: absolute;
+  left: 300px;
+  top: 474px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background: #2d8299;
+    box-shadow: 6px 6px 12px #C4C4C4;
+    transition: all 0.5s
+  }
+
+  &:not(hover) {
+    transition: all 0.5s
+  }
 }
