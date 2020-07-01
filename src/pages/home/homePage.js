@@ -2,6 +2,7 @@ import React from "react";
 
 import "./homePage.scss";
 import {ReactComponent as SmokeForestLogo} from "../../res/vectors/logo.svg";
+import {ReactComponent as SmokeForestWhiteLogo} from "../../res/vectors/logo-white.svg";
 import {ReactComponent as SearchButtonLogo} from "../../res/vectors/magnify.svg";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper";
@@ -10,10 +11,12 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import {isMobile} from "react-device-detect";
+import IconButton from "@material-ui/core/IconButton";
+import {ReactComponent as HamLogo} from "../../res/vectors/ham.svg";
+import CloseIcon from "@material-ui/icons/Close";
 
 
 const styles = () => ({});
-
 
 const disableRippleTheme = createMuiTheme({
     props: {
@@ -29,25 +32,36 @@ class HomePage extends React.Component {
 
         this.classes = this.props.classes;
         this.state = {
-            tabBar: {
-                value: -1
+            desktop: {
+                tabBar: {
+                    value: -1
+                },
+            },
+            mobile: {
+                drawer: {
+                    open: false
+                }
             },
             isDesktop: !isMobile
         }
 
         this.setTabBar = (tabBar) => {
-            this.setState({tabBar: tabBar});
+            this.setState({desktop: {...this.state.desktop, tabBar: tabBar}});
         }
 
-        this.setDesktop = (val) => {
+        this.setMobileDrawer = (drawer) => {
+            this.setState({mobile: {...this.state.mobile, drawer: drawer}});
+        }
+
+        this.setDesktopView = (val) => {
             this.setState({isDesktop: val});
         }
 
         this.windowUpdater = () => {
             if (window.innerWidth < 1300 || isMobile) {
-                this.setDesktop(false);
+                this.setDesktopView(false);
             } else {
-                this.setDesktop(true);
+                this.setDesktopView(true);
             }
         }
     }
@@ -56,72 +70,144 @@ class HomePage extends React.Component {
         window.addEventListener("resize", this.windowUpdater);
     }
 
-    backgroundVectors() {
-        return (
-            <div>
-                <div className="home-page-right-img-upper-rect"/>
-                <div className="home-page-right-img-lower-rect"/>
-            </div>
-        )
-    }
-
-    appBar() {
-        const searchBar = () => {
+    desktop() {
+        const backgroundVectors = () => {
             return (
-                <Paper component="form" elevation={0} className="home-page-search-bar">
-                    <InputBase
-                        className="home-page-search-bar-input"
-                        placeholder="SEARCH"
-                    />
-                    <SearchButtonLogo/>
-                </Paper>
+                <div>
+                    <div className="home-page-right-img-upper-rect"/>
+                    <div className="home-page-right-img-lower-rect"/>
+                </div>
             )
         }
 
-        const tabBar = () => {
-            const handleChange = (event, value) => {
-                this.setTabBar({value: value});
+        const appBar = () => {
+            const searchBar = () => {
+                return (
+                    <Paper component="form" elevation={0} className="home-page-search-bar">
+                        <InputBase
+                            className="home-page-search-bar-input"
+                            placeholder="SEARCH"
+                        />
+                        <SearchButtonLogo/>
+                    </Paper>
+                )
+            }
+
+            const tabBar = () => {
+                const handleChange = (event, value) => {
+                    this.setTabBar({value: value});
+                }
+
+                return (
+                    <Paper square>
+                        <Tabs value={this.state.desktop.tabBar.value} onChange={handleChange} indicatorColor="primary"
+                              textColor="primary" className="home-page-tab-bar">
+                            <Tab label="Documentation"/>
+                            <Tab label="Contributions"/>
+                            <Tab label="Issues"/>
+                        </Tabs>
+                    </Paper>
+                )
             }
 
             return (
-                <Paper square>
-                    <Tabs value={this.state.tabBar.value} onChange={handleChange} indicatorColor="primary"
-                          textColor="primary" className="home-page-tab-bar">
-                        <Tab label="Documentation"/>
-                        <Tab label="Contributions"/>
-                        <Tab label="Issues"/>
-                    </Tabs>
-                </Paper>
+                <div className="home-page-app-bar-background">
+                    <SmokeForestLogo className="home-page-logo"/>
+                    {searchBar()}
+                    <MuiThemeProvider theme={disableRippleTheme}>
+                        {tabBar()}
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
+
+        const body = () => {
+            return (
+                <div>
+                    <SmokeForestLogo className="home-page-logo-large"/>
+                    <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
+                    <button className="home-page-body-button"> Forest</button>
+                </div>
             )
         }
 
         return (
-            <div className="home-page-app-bar-background">
-                <SmokeForestLogo className="home-page-logo"/>
-                {searchBar()}
-                <MuiThemeProvider theme={disableRippleTheme}>
-                    {tabBar()}
-                </MuiThemeProvider>
+            <div>
+                {backgroundVectors()}
+                {appBar()}
+                {body()}
             </div>
         )
     }
 
-    body() {
-        return (
-            <div>
-                <SmokeForestLogo className="home-page-logo-large"/>
-                <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
-                <button className="home-page-body-button"> Forest </button>
-            </div>
-        )
-    }
+    mobile() {
+        const appBar = () => {
 
-    desktop() {
+            const hamburger = () => {
+                return (
+                    <MuiThemeProvider theme={disableRippleTheme}>
+                        <IconButton className="home-page-mobile-hamburger" onClick={
+                            () => this.setMobileDrawer({...this.state.mobile.drawer, open: true})
+                        }>
+                            <HamLogo/>
+                        </IconButton>
+                    </MuiThemeProvider>
+                )
+            }
+
+            const banner = () => {
+                return (
+                    <div>
+                        <SmokeForestLogo className="home-page-mobile-banner"/>
+                    </div>
+                )
+            }
+
+
+            return (
+                <div className={
+                    this.state.mobile.drawer.open ? "home-page-app-bar-background-mobile send-to-back" :
+                        "home-page-app-bar-background-mobile"}>
+                    {hamburger()}
+                    {banner()}
+                </div>
+            )
+
+
+        }
+
+        const drawer = () => {
+            const drawerBar = () => {
+                return (
+                    <div>
+                        <MuiThemeProvider theme={disableRippleTheme}>
+                            <IconButton className="home-page-mobile-drawer-close-btn" onClick={
+                                () => this.setMobileDrawer({...this.state.mobile.drawer, open: false})
+                            }>
+                                <CloseIcon className="home-page-mobile-drawer-close-btn-back"/>
+                            </IconButton>
+                        </MuiThemeProvider>
+                        <SmokeForestWhiteLogo className="home-page-mobile-drawer-logo"/>
+                    </div>
+                )
+            }
+
+            if (this.state.mobile.drawer.open) {
+                return (
+
+                    <div className="home-page-mobile-drawer">
+                        {drawerBar()}
+                    </div>
+                )
+            } else {
+                return <div/>
+            }
+        }
+
         return (
             <div>
-                {this.backgroundVectors()}
-                {this.appBar()}
-                {this.body()}
+                {appBar()}
+                {drawer()}
             </div>
         )
     }
@@ -130,11 +216,7 @@ class HomePage extends React.Component {
         if (this.state.isDesktop) {
             return this.desktop();
         } else {
-            return (
-                <div>
-                    <h1> Mobile version under construction </h1>
-                </div>
-            )
+            return this.mobile();
         }
     }
 }
