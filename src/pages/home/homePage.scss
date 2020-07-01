@@ -147,12 +147,16 @@
   }
 
   &:hover {
-    background: #2d8299;
+    background: #39a0bd;
     box-shadow: 6px 6px 12px #C4C4C4;
-    transition: all 0.5s
+    transition: all 0.25s
   }
 
   &:not(hover) {
-    transition: all 0.5s
+    transition: all 0.25s
+  }
+
+  &:active {
+    background: #2e859c;
   }
 }
