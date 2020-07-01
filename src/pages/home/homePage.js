@@ -14,6 +14,9 @@ import {isMobile} from "react-device-detect";
 import IconButton from "@material-ui/core/IconButton";
 import {ReactComponent as HamLogo} from "../../res/vectors/ham.svg";
 import CloseIcon from "@material-ui/icons/Close";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 
 const styles = () => ({});
@@ -192,11 +195,34 @@ class HomePage extends React.Component {
                 )
             }
 
+            const drawerList = () => {
+                return (
+                    <List className="home-page-mobile-drawer-item-container">
+                        <ListItem button className="home-page-mobile-drawer-item">
+                            <ListItemText> <span
+                                className="home-page-mobile-drawer-list-item-inner-text">Documentation</span>
+                            </ListItemText>
+                        </ListItem>
+                        <ListItem button className="home-page-mobile-drawer-item">
+                            <ListItemText> <span
+                                className="home-page-mobile-drawer-list-item-inner-text">Contribute</span>
+                            </ListItemText>
+                        </ListItem>
+                        <ListItem button className="home-page-mobile-drawer-item">
+                            <ListItemText> <span
+                                className="home-page-mobile-drawer-list-item-inner-text">Issues</span>
+                            </ListItemText>
+                        </ListItem>
+                    </List>
+                )
+            }
+
             if (this.state.mobile.drawer.open) {
                 return (
 
                     <div className="home-page-mobile-drawer">
                         {drawerBar()}
+                        {drawerList()}
                     </div>
                 )
             } else {
@@ -214,7 +240,7 @@ class HomePage extends React.Component {
 
     render() {
         if (this.state.isDesktop) {
-            return this.desktop();
+            return this.mobile();
         } else {
             return this.mobile();
         }

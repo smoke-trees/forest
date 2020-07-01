@@ -213,6 +213,36 @@
   margin-top: 24px;
 }
 
+.home-page-mobile-drawer-item {
+  color: #ffffff;
+
+  &:hover {
+    color: #2e859c;
+  }
+}
+
+.home-page-drawer-item-container {
+
+}
+
+.home-page-mobile-drawer-item-container .MuiListItem-root {
+  text-align: center;
+  align-items: center !important;
+}
+
+
+.home-page-mobile-drawer-list-item-inner-text {
+  color: #ffffff;
+  font-family: Source Sans Pro, serif !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
 .send-to-back {
   z-index: -1
 }
