@@ -9,21 +9,30 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import "./app.scss";
+import {ReactComponent as SmokeForestLogo} from "../../res/vectors/logo.svg"
 
 const styles = () => ({
+    logo: {
+        marginLeft: "20px",
+        marginTop: "20px",
+        height: "50px"
+    },
     leftGrid: {
         width: "250px",
         height: "100vh",
         backgroundColor: "#2a2a2a"
+    },
+    leftGridList: {
+        marginTop: "calc(30vh - 70px)",
+        height: "60vh",
+        overflowY: "auto"
     },
     rightGrid: {
         width: "calc(100vw - 265px)",
         height: "calc(100vh - 20px)",
         overflowY: "auto"
     },
-    parentGrid: {
-
-    },
+    parentGrid: {},
     listItem: {
         "&:hover": {
             backgroundColor: "#3699c7"
@@ -78,8 +87,18 @@ class App extends React.Component {
             <div>
                 <Grid container className={classes.parentGrid}>
                     <Grid item>
-                        <Grid container direction="column" className={classes.leftGrid}>
-                            <List>
+                        <Grid container spacing={3} direction="column" className={classes.leftGrid}>
+                            <Grid item>
+                                <SmokeForestLogo className={classes.logo}/>
+                            </Grid>
+
+
+                            <Grid item>
+                                <span className="app-list-subheading">Models</span>
+                            </Grid>
+
+
+                            <List className={classes.leftGridList}>
                                 {models.map((elem) => {
                                     const onItemClick = (elem) => {
                                         setRedirect(elem.path);
@@ -96,6 +115,8 @@ class App extends React.Component {
                                     )
                                 })}
                             </List>
+
+
                         </Grid>
                     </Grid>
 

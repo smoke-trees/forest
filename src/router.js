@@ -1,6 +1,6 @@
 import React from "react";
 
-import {App} from "./pages";
+import {App, HomePage} from "./pages";
 import {Route} from "react-router";
 import {BrowserRouter, Switch} from "react-router-dom";
 
@@ -35,7 +35,7 @@ class AppRouter extends React.Component {
                             </Route>
                         )
                     })}
-                    <Route path="/" component={App}/>
+                    <Route path="/" component={HomePage}/>
                 </Switch>
             </BrowserRouter>
         )

@@ -1,7 +1,16 @@
 import React from 'react';
 import {ProgressIndicatorComponent} from "../progressIndicator";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const BASE_PATH = "https://raw.githubusercontent.com/smoke-trees/model-zoo/master";
+
+const styles = () => ({
+    root: {
+        marginLeft: "20px",
+        width: "calc(100% - 20px)"
+    }
+});
+
 
 class NotebookComponent extends React.Component {
     constructor(props) {
@@ -11,6 +20,8 @@ class NotebookComponent extends React.Component {
             preprocess: null,
             config: null
         };
+
+        this.classes = this.props.classes;
     }
 
     componentDidMount() {
@@ -38,15 +49,15 @@ class NotebookComponent extends React.Component {
             );
         } else {
             return (
-                <>
+                <div className={this.classes.root}>
                     <h1>Preprocessing stage</h1>
                     <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}/>
                     <h1>Usage</h1>
                     <div dangerouslySetInnerHTML={{__html: this.state.usage}}/>
-                </>
+                </div>
             );
         }
     }
 }
 
-export default NotebookComponent;
+export default withStyles(styles)(NotebookComponent);
