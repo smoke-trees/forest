@@ -1,0 +1,47 @@
+.model-title-head {
+  position: absolute;
+  width: 125px;
+  height: 50px;
+  left: 184px;
+  top: 116px;
+
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 50px;
+  letter-spacing: 0.01em;
+
+  color: #6E6E6E;
+}
+
+.model-tabs {
+  position: absolute;
+  left: 188px;
+  top: 187px;
+  height: 60vh;
+
+  .PrivateTabIndicator-colorSecondary-3 {
+    background-color: #40AFD1;
+  }
+
+  .PrivateTabIndicator-root-1 {
+    left: 0 !important;
+  }
+
+  .MuiTab-root {
+    font-family: Source Sans Pro, serif !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    line-height: 15px !important;
+    text-align: left !important;
+    letter-spacing: 0.01em !important;
+    color: #8C8C8C !important;
+  }
+
+  .MuiTab-wrapper {
+    align-items: start;
+  }
+}
+

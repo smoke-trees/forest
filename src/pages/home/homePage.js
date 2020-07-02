@@ -17,7 +17,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import {ModelPage} from "../../components";
+import {Redirect} from "react-router-dom";
 
 const styles = () => ({});
 
@@ -34,10 +35,24 @@ class HomePage extends React.Component {
         super(props);
 
         this.classes = this.props.classes;
+
+        const mapToTabIndex = () => {
+            const cat = this.props.category;
+            if (cat === "models") {
+                return 0;
+            } else if (cat === "contributions") {
+                return 1;
+            } else if (cat === "issues") {
+                return 2;
+            } else {
+                return -1;
+            }
+        }
+
         this.state = {
             desktop: {
                 tabBar: {
-                    value: -1
+                    value: mapToTabIndex()
                 },
             },
             mobile: {
@@ -45,7 +60,8 @@ class HomePage extends React.Component {
                     open: false
                 }
             },
-            isDesktop: !isMobile
+            isDesktop: !isMobile,
+            redirect: ""
         }
 
         this.setTabBar = (tabBar) => {
@@ -67,6 +83,10 @@ class HomePage extends React.Component {
                 this.setDesktopView(true);
             }
         }
+
+        this.setRedirect = (redirect) => {
+            this.setState({redirect: redirect});
+        }
     }
 
     componentDidMount() {
@@ -74,6 +94,8 @@ class HomePage extends React.Component {
     }
 
     desktop() {
+        const {setRedirect} = this;
+
         const backgroundVectors = () => {
             return (
                 <div>
@@ -99,13 +121,25 @@ class HomePage extends React.Component {
             const tabBar = () => {
                 const handleChange = (event, value) => {
                     this.setTabBar({value: value});
+                    if (value === 0) {
+                        setRedirect("/models");
+                    } else if (value === 1) {
+                        setRedirect("/contribute");
+                    } else if (value === 2) {
+                        setRedirect("/issues");
+                    }
                 }
 
                 return (
                     <Paper square>
                         <Tabs value={this.state.desktop.tabBar.value} onChange={handleChange} indicatorColor="primary"
-                              textColor="primary" className="home-page-tab-bar">
-                            <Tab label="Documentation"/>
+                              textColor="primary" className="home-page-tab-bar"
+                              TabIndicatorProps={{
+                                  style: {
+                                      background:'#40AFD1',
+                                  }
+                              }}>
+                            <Tab label="Models"/>
                             <Tab label="Contributions"/>
                             <Tab label="Issues"/>
                         </Tabs>
@@ -125,18 +159,22 @@ class HomePage extends React.Component {
         }
 
         const body = () => {
-            return (
-                <div>
-                    <SmokeForestLogo className="home-page-logo-large"/>
-                    <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
-                    <button className="home-page-body-button"> Forest</button>
-                </div>
-            )
+            if (this.props.category === undefined) {
+                return (
+                    <div>
+                        <SmokeForestLogo className="home-page-logo-large"/>
+                        <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
+                        <button className="home-page-body-button"> Forest</button>
+                        {backgroundVectors()}
+                    </div>
+                )
+            } else if (this.props.category === "models") {
+                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}/>
+            }
         }
 
         return (
             <div>
-                {backgroundVectors()}
                 {appBar()}
                 {body()}
             </div>
@@ -200,7 +238,7 @@ class HomePage extends React.Component {
                     <List className="home-page-mobile-drawer-item-container">
                         <ListItem button className="home-page-mobile-drawer-item">
                             <ListItemText> <span
-                                className="home-page-mobile-drawer-list-item-inner-text">Documentation</span>
+                                className="home-page-mobile-drawer-list-item-inner-text">Models</span>
                             </ListItemText>
                         </ListItem>
                         <ListItem button className="home-page-mobile-drawer-item">
@@ -239,10 +277,16 @@ class HomePage extends React.Component {
     }
 
     render() {
-        if (this.state.isDesktop) {
-            return this.mobile();
+        if (this.state.redirect) {
+            const redirect = this.state.redirect;
+            this.setRedirect("");
+            return <Redirect to={redirect}/>
         } else {
-            return this.mobile();
+            if (this.state.isDesktop) {
+                return this.desktop();
+            } else {
+                return this.mobile();
+            }
         }
     }
 }
