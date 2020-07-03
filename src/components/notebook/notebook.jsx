@@ -1,8 +1,7 @@
 import React from 'react';
 import {ProgressIndicatorComponent} from "../progressIndicator";
 import withStyles from "@material-ui/core/styles/withStyles";
-
-const BASE_PATH = "https://raw.githubusercontent.com/smoke-trees/model-zoo/master";
+import {BasePath} from "../../contants";
 
 const styles = () => ({
     root: {
@@ -25,11 +24,11 @@ class NotebookComponent extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${BASE_PATH}/${this.props.modelDir}/result.json`)
+        fetch(`${BasePath}/${this.props.modelDir}/result.json`)
             .then(res => res.json())
             .then(config => {
-                const prepPromise = fetch(`${BASE_PATH}/${this.props.modelDir}/${config.Preprocessing}`).then(res => res.text());
-                const usagePromise = fetch(`${BASE_PATH}/${this.props.modelDir}/${config.Usage}`).then(res => res.text());
+                const prepPromise = fetch(`${BasePath}/${this.props.modelDir}/${config.Preprocessing}`).then(res => res.text());
+                const usagePromise = fetch(`${BasePath}/${this.props.modelDir}/${config.Usage}`).then(res => res.text());
 
                 Promise.all([prepPromise, usagePromise]).then(values => {
                     console.log(values[0], values[1])

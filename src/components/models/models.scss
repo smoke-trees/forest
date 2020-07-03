@@ -19,15 +19,7 @@
   position: absolute;
   left: 188px;
   top: 187px;
-  height: 60vh;
-
-  .PrivateTabIndicator-colorSecondary-3 {
-    background-color: #40AFD1;
-  }
-
-  .PrivateTabIndicator-root-1 {
-    left: 0 !important;
-  }
+  height: 300px;
 
   .MuiTab-root {
     font-family: Source Sans Pro, serif !important;
@@ -43,5 +35,94 @@
   .MuiTab-wrapper {
     align-items: start;
   }
+}
+
+.model-grid-list {
+  position: absolute;
+  left: 600px;
+  top: 64px;
+  padding-top: 64px !important;
+  height: calc(100% - 64px);
+
+  .MuiGridListTile-tile {
+    width: 360px;
+  }
+}
+
+.model-grid-list-item-header {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  color: #505050;
+}
+
+.model-grid-list-item-text {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: justify;
+  letter-spacing: 0.01em;
+  color: #000000;
+}
+
+.model-grid-list-item-btn {
+  color: #8C8C8C !important;
+}
+
+
+.model-git-desktop-button {
+  padding: 0;
+  border: none;
+  background: #40AFD1;
+  color: #FFFFFF;
+  width: 217px;
+  height: 35px;
+
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+
+  text-align: center;
+  letter-spacing: 0.01em;
+
+  box-shadow: 2px 2px 4px #C4C4C4;
+  border-radius: 0;
+
+  position: absolute;
+  left: 199px;
+  top: 502px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background: #39a0bd;
+    box-shadow: 6px 6px 12px #C4C4C4;
+    transition: all 0.25s
+  }
+
+  &:not(hover) {
+    transition: all 0.25s
+  }
+
+  &:active {
+    background: #2e859c;
+  }
+}
+
+.model-github-desktop-logo {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 6px;
+  left: 61px;
 }
 

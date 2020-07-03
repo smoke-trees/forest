@@ -18,7 +18,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import {ModelPage} from "../../components";
-import {Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 
 const styles = () => ({});
 
@@ -136,7 +136,7 @@ class HomePage extends React.Component {
                               textColor="primary" className="home-page-tab-bar"
                               TabIndicatorProps={{
                                   style: {
-                                      background:'#40AFD1',
+                                      background: '#40AFD1',
                                   }
                               }}>
                             <Tab label="Models"/>
@@ -280,7 +280,11 @@ class HomePage extends React.Component {
         if (this.state.redirect) {
             const redirect = this.state.redirect;
             this.setRedirect("");
-            return <Redirect to={redirect}/>
+            this.props.history.push("/" + this.props.category);
+
+            console.log(this.props);
+
+            return <Redirect to={{pathname: redirect}}/>
         } else {
             if (this.state.isDesktop) {
                 return this.desktop();
@@ -291,4 +295,4 @@ class HomePage extends React.Component {
     }
 }
 
-export default withStyles(styles)(HomePage);
+export default withRouter(withStyles(styles)(HomePage));

@@ -5,6 +5,7 @@ import {Route} from "react-router";
 import {BrowserRouter, Switch} from "react-router-dom";
 import ProgressIndicatorComponent from "./components/progressIndicator/progressIndicator";
 
+
 class AppRouter extends React.Component {
     constructor(props) {
         super(props);
