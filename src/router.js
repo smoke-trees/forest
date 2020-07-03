@@ -1,8 +1,10 @@
 import React from "react";
 
-import {App} from "./pages";
+import {HomePage} from "./pages";
 import {Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Switch} from "react-router-dom";
+import ProgressIndicatorComponent from "./components/progressIndicator/progressIndicator";
+
 
 class AppRouter extends React.Component {
     constructor(props) {
@@ -25,19 +27,29 @@ class AppRouter extends React.Component {
     }
 
     render() {
-        return (
-            <BrowserRouter>
-                <Route path="/" component={App}/>
-                {
-                    this.state.models.map((elem, idx) => {
-                    return (
-                        <Route key={idx.toString()} path={`/${elem.path}`}>
-                            <App modelDir={elem.name}/>
-                        </Route>
-                    )
-                })}
-            </BrowserRouter>
-        )
+        if (this.state.models.length === 0) {
+            return <ProgressIndicatorComponent/>
+        } else {
+            return (
+                <BrowserRouter>
+                    <Switch>
+                        {this.state.models.map((elem, idx) => {
+                            return (
+                                <Route exact key={idx.toString()} path={`/models/${elem.path}`}>
+                                    <HomePage category="models" models={this.state.models}
+                                              modelDir={elem.name} path={elem.path}/>
+                                </Route>
+                            )
+                        })}
+
+                        <Route exact path="/models" render={() => <HomePage category="models" models={this.state.models}/>}/>
+                        <Route exact path="/contributions" render={() => <HomePage category="contribute"/>}/>
+                        <Route exact path="/issues" render={() => <HomePage category="issues"/>}/>
+                        <Route exact path="/" render={() => <HomePage/>}/>
+                    </Switch>
+                </BrowserRouter>
+            )
+        }
     }
 }
 

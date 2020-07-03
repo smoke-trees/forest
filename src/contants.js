@@ -1,0 +1,1 @@
+exports.BasePath = "https://raw.githubusercontent.com/smoke-trees/model-zoo/master";

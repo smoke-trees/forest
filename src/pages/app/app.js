@@ -9,14 +9,30 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import "./app.scss";
+import {ReactComponent as SmokeForestLogo} from "../../res/vectors/logo.svg"
 
 const styles = () => ({
+    logo: {
+        marginLeft: "20px",
+        marginTop: "20px",
+        height: "50px"
+    },
     leftGrid: {
-        width: "300px",
+        width: "250px",
         height: "100vh",
-        overflowY: "auto",
         backgroundColor: "#2a2a2a"
     },
+    leftGridList: {
+        marginTop: "calc(30vh - 70px)",
+        height: "60vh",
+        overflowY: "auto"
+    },
+    rightGrid: {
+        width: "calc(100vw - 265px)",
+        height: "calc(100vh - 20px)",
+        overflowY: "auto"
+    },
+    parentGrid: {},
     listItem: {
         "&:hover": {
             backgroundColor: "#3699c7"
@@ -69,27 +85,42 @@ class App extends React.Component {
 
         return (
             <div>
-                <Grid container>
-                    <Grid container direction="column" className={classes.leftGrid}>
-                        <List>
-                            {models.map((elem) => {
-                                const onItemClick = (elem) => {
-                                    setRedirect(elem.path);
-                                }
+                <Grid container className={classes.parentGrid}>
+                    <Grid item>
+                        <Grid container spacing={3} direction="column" className={classes.leftGrid}>
+                            <Grid item>
+                                <SmokeForestLogo className={classes.logo}/>
+                            </Grid>
 
-                                return (
-                                    <ListItem button className={classes.listItem} onClick={() => onItemClick(elem)}>
-                                        <ListItemText>
+
+                            <Grid item>
+                                <span className="app-list-subheading">Models</span>
+                            </Grid>
+
+
+                            <List className={classes.leftGridList}>
+                                {models.map((elem) => {
+                                    const onItemClick = (elem) => {
+                                        setRedirect(elem.path);
+                                    }
+
+                                    return (
+                                        <ListItem button className={classes.listItem} onClick={() => onItemClick(elem)}>
+                                            <ListItemText>
                                             <span className="app-list-item-text">
                                                 {elem.name}
                                             </span>
-                                        </ListItemText>
-                                    </ListItem>
-                                )
-                            })}
-                        </List>
+                                            </ListItemText>
+                                        </ListItem>
+                                    )
+                                })}
+                            </List>
+
+
+                        </Grid>
                     </Grid>
-                    <Grid item>
+
+                    <Grid item className={classes.rightGrid}>
                         {injectComponent()}
                     </Grid>
                 </Grid>
@@ -103,7 +134,7 @@ class App extends React.Component {
                 <ProgressIndicatorComponent/>
             )
         } else {
-            if (this.state.redirect) {
+            if (this.state.redirect && this.state.redirect !== this.props.path) {
                 return <Redirect to={this.state.redirect}/>
             } else {
                 return (
