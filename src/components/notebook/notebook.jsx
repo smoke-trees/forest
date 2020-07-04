@@ -3,6 +3,8 @@ import {ProgressIndicatorComponent} from "../progressIndicator";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {BasePath} from "../../contants";
 
+import "./notebook.scss";
+
 const styles = () => ({
     root: {
         marginLeft: "20px",
@@ -31,7 +33,6 @@ class NotebookComponent extends React.Component {
                 const usagePromise = fetch(`${BasePath}/${this.props.modelDir}/${config.Usage}`).then(res => res.text());
 
                 Promise.all([prepPromise, usagePromise]).then(values => {
-                    console.log(values[0], values[1])
                     this.setState({
                         preprocess: values[0],
                         usage: values[1],
@@ -49,9 +50,9 @@ class NotebookComponent extends React.Component {
         } else {
             return (
                 <div className={this.classes.root}>
-                    <h1>Preprocessing stage</h1>
+                    <span className="notebook-header">Preprocessing stage</span>
                     <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}/>
-                    <h1>Usage</h1>
+                    <span className="notebook-header">Usage</span>
                     <div dangerouslySetInnerHTML={{__html: this.state.usage}}/>
                 </div>
             );

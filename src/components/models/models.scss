@@ -40,7 +40,7 @@
 .model-grid-list {
   position: absolute;
   left: 600px;
-  top: 64px;
+  top: 67px;
   padding-top: 64px !important;
   height: calc(100% - 64px);
 
@@ -124,5 +124,16 @@
   height: 20px;
   top: 6px;
   left: 61px;
+}
+
+.model-body-title-header {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+
+  color: #505050;
 }
 

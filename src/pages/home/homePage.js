@@ -169,7 +169,7 @@ class HomePage extends React.Component {
                     </div>
                 )
             } else if (this.props.category === "models") {
-                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}/>
+                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models} modelDir={this.props.modelDir}/>
             }
         }
 
@@ -281,8 +281,6 @@ class HomePage extends React.Component {
             const redirect = this.state.redirect;
             this.setRedirect("");
             this.props.history.push("/" + this.props.category);
-
-            console.log(this.props);
 
             return <Redirect to={{pathname: redirect}}/>
         } else {
