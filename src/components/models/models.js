@@ -16,6 +16,7 @@ import CardActions from "@material-ui/core/CardActions";
 import {Redirect} from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+import {searchByTags} from "../../utils/search";
 
 const disableRippleTheme = createMuiTheme({
     props: {
@@ -74,6 +75,8 @@ class ModelPage extends React.Component {
                 this.setState({tabValue: value});
                 if (value > 0) {
                     this.setRedirect(`/models/${this.props.models[value - 1].path}`)
+                } else {
+                    this.setRedirect("/models");
                 }
             }
 
@@ -104,7 +107,6 @@ class ModelPage extends React.Component {
         }
 
         const git = () => {
-
             const openLink = () => {
                 const win = window.open(this.props.models[this.state.tabValue - 1]["html_url"], "__blank");
                 if (win != null) {
@@ -127,7 +129,8 @@ class ModelPage extends React.Component {
         const body = () => {
             if (Object.entries(this.state.modelInfoMap).length === this.props.models.length) {
                 if (this.state.tabValue === 0) {
-                    let items = this.props.models.map(model => {
+                    let items = searchByTags(this.props.models, this.state.modelInfoMap, this.props.searchText)
+                        .map(model => {
                         return (
                             <GridListTile style={{height: "360px"}}>
                                 <Card elevation={4} style={{margin: "10px"}}>

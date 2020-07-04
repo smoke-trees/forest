@@ -54,6 +54,7 @@ class App extends React.Component {
                 tabBar: {
                     value: mapToTabIndex()
                 },
+                searchText: ""
             },
             mobile: {
                 drawer: {
@@ -66,6 +67,10 @@ class App extends React.Component {
 
         this.setTabBar = (tabBar) => {
             this.setState({desktop: {...this.state.desktop, tabBar: tabBar}});
+        }
+
+        this.setSearchText = (event) => {
+            this.setState({desktop: {...this.state.desktop, searchText: event.target.value}});
         }
 
         this.setMobileDrawer = (drawer) => {
@@ -112,6 +117,8 @@ class App extends React.Component {
                         <InputBase
                             className="home-page-search-bar-input"
                             placeholder="SEARCH"
+                            value={this.state.desktop.searchText}
+                            onChange={(value) => {this.setSearchText(value)}}
                         />
                         <SearchButtonLogo/>
                     </Paper>
@@ -169,7 +176,8 @@ class App extends React.Component {
                     </div>
                 )
             } else if (this.props.category === "models") {
-                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models} modelDir={this.props.modelDir}/>
+                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
+                                  modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}/>
             }
         }
 
