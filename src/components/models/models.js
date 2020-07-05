@@ -155,7 +155,7 @@ class ModelPage extends React.Component {
                     if (this.props.modelDir !== undefined) {
                         return (
                             <Grid container spacing={3}
-                                  style={{marginLeft: "450px", marginTop: "100px", overflowY: "auto", height: "40vw"}}>
+                                  style={{marginLeft: "450px", marginTop: "100px", overflowY: "auto", height: "40vw", width: "70vw"}}>
                                 <Grid item>
                                     <span
                                         className="model-body-title-header">{this.state.modelInfoMap[this.props.modelDir]["Title"]}</span>
