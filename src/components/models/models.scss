@@ -49,6 +49,18 @@
   }
 }
 
+.model-grid-list-mb {
+  position: absolute;
+  left: calc(50vw - 180px);
+  top: 67px;
+  padding-top: 64px !important;
+  height: calc(100% - 64px);
+
+  .MuiGridListTile-tile {
+    width: 360px;
+  }
+}
+
 .model-grid-list-item-header {
   font-family: Source Sans Pro, serif;
   font-style: normal;
@@ -135,5 +147,17 @@
   letter-spacing: 0.01em;
 
   color: #505050;
+}
+
+.model-body-title-header-mb {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+
+  color: #505050;
+  margin-left: calc(50vw - 175px);
 }
 

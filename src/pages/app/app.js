@@ -61,7 +61,7 @@ class App extends React.Component {
                     open: false
                 }
             },
-            isDesktop: !isMobile,
+            isDesktop: !(isMobile || window.innerWidth < 1300),
             redirect: ""
         }
 
@@ -118,7 +118,9 @@ class App extends React.Component {
                             className="home-page-search-bar-input"
                             placeholder="SEARCH"
                             value={this.state.desktop.searchText}
-                            onChange={(value) => {this.setSearchText(value)}}
+                            onChange={(value) => {
+                                this.setSearchText(value)
+                            }}
                         />
                         <SearchButtonLogo/>
                     </Paper>
@@ -177,7 +179,8 @@ class App extends React.Component {
                 )
             } else if (this.props.category === "models") {
                 return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
-                                  modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}/>
+                                  modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
+                                  setRedirect={this.setRedirect}/>
             }
         }
 
@@ -212,11 +215,8 @@ class App extends React.Component {
                 )
             }
 
-
             return (
-                <div className={
-                    this.state.mobile.drawer.open ? "app-page-app-bar-background-mobile send-to-back" :
-                        "app-page-app-bar-background-mobile"}>
+                <div className="app-page-app-bar-background-mobile">
                     {hamburger()}
                     {banner()}
                 </div>
@@ -244,7 +244,11 @@ class App extends React.Component {
             const drawerList = () => {
                 return (
                     <List className="home-page-mobile-drawer-item-container">
-                        <ListItem button className="home-page-mobile-drawer-item">
+                        <ListItem button className="home-page-mobile-drawer-item"
+                                  onClick={() => {
+                                      this.setRedirect("/models");
+                                      this.setMobileDrawer({...this.state.mobile.drawer, open: false});
+                                  }}>
                             <ListItemText> <span
                                 className="home-page-mobile-drawer-list-item-inner-text">Models</span>
                             </ListItemText>
@@ -276,10 +280,19 @@ class App extends React.Component {
             }
         }
 
+        const body = () => {
+            if (this.props.category === "models") {
+                return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
+                                  modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
+                                  setRedirect={this.setRedirect} drawerIsOpen={this.state.mobile.drawer.open}/>
+            }
+        }
+
         return (
             <div>
                 {appBar()}
                 {drawer()}
+                {body()}
             </div>
         )
     }
@@ -288,7 +301,7 @@ class App extends React.Component {
         if (this.state.redirect) {
             const redirect = this.state.redirect;
             this.setRedirect("");
-            this.props.history.push("/" + this.props.category);
+            this.props.history.push(redirect);
 
             return <Redirect to={{pathname: redirect}}/>
         } else {

@@ -9,14 +9,15 @@ import GridListTile from "@material-ui/core/GridListTile";
 import {BasePath} from "../../contants";
 import {NotebookComponent, ProgressIndicatorComponent} from "..";
 import {ReactComponent as GithubDesktopLogo} from "../../res/vectors/github.svg"
+import {ReactComponent as GithubDesktopBlackLogo} from "../../res/vectors/github-black.svg"
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import {Redirect} from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import {searchByTags} from "../../utils/search";
+import IconButton from "@material-ui/core/IconButton";
 
 const disableRippleTheme = createMuiTheme({
     props: {
@@ -34,16 +35,10 @@ class ModelPage extends React.Component {
             tabValue: 0,
             selectedModel: "ALL",
             modelInfoMap: {},
-            redirect: false
         }
-
 
         if (this.props.modelDir !== undefined) {
             this.state.tabValue = this.props.models.findIndex(model => model.name === this.props.modelDir) + 1;
-        }
-
-        this.setRedirect = (redirect) => {
-            this.setState({redirect: redirect});
         }
     }
 
@@ -74,9 +69,9 @@ class ModelPage extends React.Component {
             const handleChange = (event, value) => {
                 this.setState({tabValue: value});
                 if (value > 0) {
-                    this.setRedirect(`/models/${this.props.models[value - 1].path}`)
+                    this.props.setRedirect(`/models/${this.props.models[value - 1].path}`)
                 } else {
-                    this.setRedirect("/models");
+                    this.props.setRedirect("/models");
                 }
             }
 
@@ -131,25 +126,25 @@ class ModelPage extends React.Component {
                 if (this.state.tabValue === 0) {
                     let items = searchByTags(this.props.models, this.state.modelInfoMap, this.props.searchText)
                         .map(model => {
-                        return (
-                            <GridListTile style={{height: "360px"}}>
-                                <Card elevation={4} style={{margin: "10px"}}>
-                                    <CardContent>
+                            return (
+                                <GridListTile style={{height: "360px"}}>
+                                    <Card elevation={4} style={{margin: "10px"}}>
+                                        <CardContent>
                                        <span
                                            className="model-grid-list-item-header"> {this.state.modelInfoMap[model.name]["Title"]}
                                            <br/><br/> </span>
-                                        <span
-                                            className="model-grid-list-item-text"> {this.state.modelInfoMap[model.name]["Overview"]}
-                                            <br/><br/> </span>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button variant="standard" className="model-grid-list-item-btn"
-                                        onClick={() => this.setRedirect(`/models/${model.path}`)}> View </Button>
-                                    </CardActions>
-                                </Card>
-                            </GridListTile>
-                        )
-                    });
+                                            <span
+                                                className="model-grid-list-item-text"> {this.state.modelInfoMap[model.name]["Overview"]}
+                                                <br/><br/> </span>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button variant="standard" className="model-grid-list-item-btn"
+                                                    onClick={() => this.props.setRedirect(`/models/${model.path}`)}> View </Button>
+                                        </CardActions>
+                                    </Card>
+                                </GridListTile>
+                            )
+                        });
 
                     return (
                         <GridList cellHeight={360} className="model-grid-list">
@@ -159,12 +154,15 @@ class ModelPage extends React.Component {
                 } else {
                     if (this.props.modelDir !== undefined) {
                         return (
-                            <Grid container spacing={3} style={{marginLeft: "500px", marginTop: "100px", overflowY: "auto", height: "40vw"}}>
+                            <Grid container spacing={3}
+                                  style={{marginLeft: "450px", marginTop: "100px", overflowY: "auto", height: "40vw"}}>
                                 <Grid item>
-                                    <span className="model-body-title-header">{this.state.modelInfoMap[this.props.modelDir]["Title"]}</span>
+                                    <span
+                                        className="model-body-title-header">{this.state.modelInfoMap[this.props.modelDir]["Title"]}</span>
                                     <br/><br/>
                                     <Box>
-                                        <NotebookComponent modelDir={this.props.modelDir}/>
+                                        <NotebookComponent isDesktop={this.props.isDesktop}
+                                                           modelDir={this.props.modelDir}/>
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -190,21 +188,74 @@ class ModelPage extends React.Component {
     }
 
     mobile() {
+        const openLink = () => {
+            const win = window.open(this.props.models.find(model => model.name === this.props.modelDir)["html_url"], "__blank");
+            if (win != null) {
+                win.focus();
+            }
+        }
 
+        if (Object.entries(this.state.modelInfoMap).length === this.props.models.length) {
+            if (this.props.modelDir === undefined) {
+                let items = this.props.models
+                    .map(model => {
+                        return (
+                            <GridListTile style={{height: "360px"}}>
+                                <Card elevation={4} style={{margin: "10px"}}>
+                                    <CardContent>
+                                       <span
+                                           className="model-grid-list-item-header"> {this.state.modelInfoMap[model.name]["Title"]}
+                                           <br/><br/> </span>
+                                        <span
+                                            className="model-grid-list-item-text"> {this.state.modelInfoMap[model.name]["Overview"]}
+                                            <br/><br/> </span>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button variant="standard" className="model-grid-list-item-btn"
+                                                onClick={() => this.props.setRedirect(`/models/${model.path}`)}> View </Button>
+                                    </CardActions>
+                                </Card>
+                            </GridListTile>
+                        )
+                    });
+
+                return (
+                    <GridList cellHeight={360} cols={1}
+                              className={"model-grid-list-mb"}>
+                        {items}
+                    </GridList>
+                )
+            } else {
+                return (
+                    <Grid container spacing={3}
+                          style={{marginLeft: "0px", marginTop: "0", overflowY: "auto", height: "calc(100vh - 80px)",
+                              overflowX: "hidden"}}>
+                        <Grid item style={{height: "100%"}}>
+                                    <span className="model-body-title-header-mb">
+                                        {this.state.modelInfoMap[this.props.modelDir]["Title"]}
+                                        <IconButton style={{marginLeft: "5px", marginTop: "-7px"}} onClick={openLink}>
+                                            <GithubDesktopBlackLogo/>
+                                        </IconButton>
+                                    </span>
+                            <br/><br/>
+                            <Box>
+                                <NotebookComponent isDrawerOpen={this.props.drawerIsOpen}
+                                                   isDesktop={this.props.isDesktop} modelDir={this.props.modelDir}/>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                )
+            }
+        } else {
+            return <ProgressIndicatorComponent/>
+        }
     }
 
     render() {
-        if (this.state.redirect) {
-            const redirect = this.state.redirect;
-            this.setRedirect("");
-            return <Redirect to={{pathname: redirect}}/>
+        if (this.props.isDesktop) {
+            return this.desktop()
         } else {
-
-            if (this.props.isDesktop) {
-                return this.desktop()
-            } else {
-                return this.mobile()
-            }
+            return this.mobile()
         }
     }
 }

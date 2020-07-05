@@ -51,10 +51,12 @@ class NotebookComponent extends React.Component {
             return (
                 <div className={this.classes.root}>
                     <span className="notebook-header">Preprocessing stage</span>
-                    <div dangerouslySetInnerHTML={{__html: this.state.preprocess}} className="notebook-component-container"/>
+                    <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}
+                         className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
                     <br/>
                     <span className="notebook-header">Usage</span>
-                    <div dangerouslySetInnerHTML={{__html: this.state.usage}} className="notebook-component-container"/>
+                    <div dangerouslySetInnerHTML={{__html: this.state.usage}}
+                         className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
                 </div>
             );
         }

@@ -175,9 +175,12 @@
 }
 
 .home-page-mobile-drawer {
+  position: absolute;
+  top: 0;
   width: unquote("min(100vw, 360px)");
   height: 100vh;
   background: #40AFD1;
+  z-index: 2;
 }
 
 .home-page-mobile-drawer-close-btn {
@@ -230,6 +233,3 @@
   text-transform: uppercase !important;
 }
 
-.send-to-back {
-  z-index: -1
-}

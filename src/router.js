@@ -4,6 +4,7 @@ import {App} from "./pages";
 import {Route} from "react-router";
 import {BrowserRouter, Switch} from "react-router-dom";
 import ProgressIndicatorComponent from "./components/progressIndicator/progressIndicator";
+import "./global.css";
 
 
 class AppRouter extends React.Component {
