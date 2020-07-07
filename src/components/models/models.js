@@ -200,7 +200,7 @@ class ModelPage extends React.Component {
                 let items = this.props.models
                     .map(model => {
                         return (
-                            <GridListTile style={{height: "360px"}}>
+                            <GridListTile style={{height: "fit-content"}}>
                                 <Card elevation={4} style={{margin: "10px"}}>
                                     <CardContent>
                                        <span

@@ -42,7 +42,7 @@
   left: 600px;
   top: 67px;
   padding-top: 64px !important;
-  height: calc(100% - 64px);
+  height: calc(100vh - 67px);
 
   .MuiGridListTile-tile {
     width: 360px;
@@ -53,8 +53,7 @@
   position: absolute;
   left: calc(50vw - 180px);
   top: 67px;
-  padding-top: 64px !important;
-  height: calc(100% - 64px);
+  height: calc(100vh - 67px);
 
   .MuiGridListTile-tile {
     width: 360px;
