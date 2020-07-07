@@ -138,7 +138,7 @@ class ModelPage extends React.Component {
                                                 <br/><br/> </span>
                                         </CardContent>
                                         <CardActions>
-                                            <Button variant="standard" className="model-grid-list-item-btn"
+                                            <Button className="model-grid-list-item-btn"
                                                     onClick={() => this.props.setRedirect(`/models/${model.path}`)}> View </Button>
                                         </CardActions>
                                     </Card>
@@ -189,7 +189,9 @@ class ModelPage extends React.Component {
 
     mobile() {
         const openLink = () => {
-            const win = window.open(this.props.models.find(model => model.name === this.props.modelDir)["html_url"], "__blank");
+            const win = window.open(this.props.models
+                .find(model => model.name === this.props.modelDir)["html_url"], "__blank");
+
             if (win != null) {
                 win.focus();
             }
@@ -211,7 +213,7 @@ class ModelPage extends React.Component {
                                             <br/><br/> </span>
                                     </CardContent>
                                     <CardActions>
-                                        <Button variant="standard" className="model-grid-list-item-btn"
+                                        <Button className="model-grid-list-item-btn"
                                                 onClick={() => this.props.setRedirect(`/models/${model.path}`)}> View </Button>
                                     </CardActions>
                                 </Card>
