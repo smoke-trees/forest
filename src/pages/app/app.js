@@ -17,7 +17,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import {ModelPage, ContributionPage} from "../../components";
+import {ModelPage, ContributionPage, IssuePage} from "../../components";
 import {Redirect, withRouter} from "react-router-dom";
 
 const styles = () => ({});
@@ -173,7 +173,7 @@ class App extends React.Component {
                     <div>
                         <SmokeForestLogo className="home-page-logo-large"/>
                         <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
-                        <button className="home-page-body-button"> Forest</button>
+                        <button className="home-page-body-button"> Forest </button>
                         {backgroundVectors()}
                     </div>
                 )
@@ -183,6 +183,8 @@ class App extends React.Component {
                                   setRedirect={this.setRedirect}/>
             } else if (this.props.category === "contributions") {
                 return <ContributionPage isDesktop={this.state.isDesktop} setRedirect={this.setRedirect}/>
+            } else if (this.props.category === "issues") {
+                return <IssuePage isDesktop={this.state.isDesktop} setRedirect={this.setRedirect}/>
             }
         }
 
@@ -263,7 +265,10 @@ class App extends React.Component {
                                 className="home-page-mobile-drawer-list-item-inner-text">contributions</span>
                             </ListItemText>
                         </ListItem>
-                        <ListItem button className="home-page-mobile-drawer-item">
+                        <ListItem button className="home-page-mobile-drawer-item" onClick={() => {
+                            this.setRedirect("/issues");
+                            this.setMobileDrawer({...this.state.mobile.drawer, open: false});
+                        }}>
                             <ListItemText> <span
                                 className="home-page-mobile-drawer-list-item-inner-text">Issues</span>
                             </ListItemText>
@@ -290,6 +295,10 @@ class App extends React.Component {
                 return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
                                   modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
                                   setRedirect={this.setRedirect} drawerIsOpen={this.state.mobile.drawer.open}/>
+            } else if (this.props.category === "contributions") {
+                return <ContributionPage isDesktop={this.state.isDesktop} setRedirect={this.setRedirect}/>
+            } else if (this.props.category === "issues") {
+                return <IssuePage isDesktop={this.state.isDesktop} setRedirect={this.setRedirect}/>
             }
         }
 
