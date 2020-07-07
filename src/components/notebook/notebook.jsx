@@ -43,9 +43,6 @@ class NotebookComponent extends React.Component {
     }
 
     render() {
-
-
-
         if (this.state.config === null) {
             return (
                 <ProgressIndicatorComponent/>

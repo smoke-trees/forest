@@ -17,7 +17,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import {ModelPage} from "../../components";
+import {ModelPage, ContributionPage} from "../../components";
 import {Redirect, withRouter} from "react-router-dom";
 
 const styles = () => ({});
@@ -133,7 +133,7 @@ class App extends React.Component {
                     if (value === 0) {
                         setRedirect("/models");
                     } else if (value === 1) {
-                        setRedirect("/contribute");
+                        setRedirect("/contributions");
                     } else if (value === 2) {
                         setRedirect("/issues");
                     }
@@ -181,6 +181,8 @@ class App extends React.Component {
                 return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
                                   modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
                                   setRedirect={this.setRedirect}/>
+            } else if (this.props.category === "contributions") {
+                return <ContributionPage isDesktop={this.state.isDesktop} setRedirect={this.setRedirect}/>
             }
         }
 
@@ -253,9 +255,12 @@ class App extends React.Component {
                                 className="home-page-mobile-drawer-list-item-inner-text">Models</span>
                             </ListItemText>
                         </ListItem>
-                        <ListItem button className="home-page-mobile-drawer-item">
+                        <ListItem button className="home-page-mobile-drawer-item" onClick={() => {
+                            this.setRedirect("/contributions");
+                            this.setMobileDrawer({...this.state.mobile.drawer, open: false});
+                        }}>
                             <ListItemText> <span
-                                className="home-page-mobile-drawer-list-item-inner-text">Contribute</span>
+                                className="home-page-mobile-drawer-list-item-inner-text">contributions</span>
                             </ListItemText>
                         </ListItem>
                         <ListItem button className="home-page-mobile-drawer-item">
@@ -298,9 +303,11 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.redirect) {
+        if (this.state.redirect && this.props.history.location.pathname !== this.state.redirect) {
             const redirect = this.state.redirect;
             this.setRedirect("");
+
+            console.log(this.props.history.location);
             this.props.history.push(redirect);
 
             return <Redirect to={{pathname: redirect}}/>
