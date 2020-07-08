@@ -1,0 +1,28 @@
+.notebook-header {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+
+  color: #505050;
+}
+
+.notebook-component-container {
+
+}
+
+.notebook-component-container .container {
+  width: calc(100% - 50px) !important;
+  margin-left: 0 !important;
+}
+
+.notebook-component-container-mb {
+
+}
+
+.notebook-component-container-mb .container {
+  width: calc(100vw - 50px) !important;
+  margin-left: 0 !important;
+}

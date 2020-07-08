@@ -40,9 +40,20 @@
 .model-grid-list {
   position: absolute;
   left: 600px;
-  top: 64px;
+  top: 67px;
   padding-top: 64px !important;
-  height: calc(100% - 64px);
+  height: calc(100vh - 67px);
+
+  .MuiGridListTile-tile {
+    width: 360px;
+  }
+}
+
+.model-grid-list-mb {
+  position: absolute;
+  left: calc(50vw - 180px);
+  top: 67px;
+  height: calc(100vh - 67px);
 
   .MuiGridListTile-tile {
     width: 360px;
@@ -124,5 +135,28 @@
   height: 20px;
   top: 6px;
   left: 61px;
+}
+
+.model-body-title-header {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+
+  color: #505050;
+}
+
+.model-body-title-header-mb {
+  font-family: Source Sans Pro, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+
+  color: #505050;
+  margin-left: 10px;
 }
 
