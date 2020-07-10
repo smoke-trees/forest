@@ -29,6 +29,8 @@ class NotebookComponent extends React.Component {
         fetch(`${BasePath}/${this.props.modelDir}/result.json`)
             .then(res => res.json())
             .then(config => {
+                console.log(`${BasePath}/${this.props.modelDir}/${config.Preprocessing}`);
+
                 const prepPromise = fetch(`${BasePath}/${this.props.modelDir}/${config.Preprocessing}`).then(res => res.text());
                 const usagePromise = fetch(`${BasePath}/${this.props.modelDir}/${config.Usage}`).then(res => res.text());
 

@@ -95,10 +95,17 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+
+
         window.addEventListener("resize", this.windowUpdater);
     }
 
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.windowUpdater);
+    }
+
     desktop() {
+        console.log(this.props.modelDir);
         const {setRedirect} = this;
 
         const backgroundVectors = () => {
@@ -313,11 +320,12 @@ class App extends React.Component {
 
     render() {
         if (this.state.redirect && this.props.history.location.pathname !== this.state.redirect) {
-            const redirect = this.state.redirect;
+            let redirect = this.state.redirect;
             this.setRedirect("");
 
-            console.log(this.props.history.location);
             this.props.history.push(redirect);
+
+            console.log(redirect);
 
             return <Redirect to={{pathname: redirect}}/>
         } else {

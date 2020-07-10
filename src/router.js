@@ -31,14 +31,15 @@ class AppRouter extends React.Component {
         if (this.state.models.length === 0) {
             return <ProgressIndicatorComponent/>
         } else {
+
             return (
                 <BrowserRouter>
                     <Switch>
                         {this.state.models.map((elem, idx) => {
                             return (
-                                <Route exact key={idx.toString()} path={`/models/${elem.path}`}>
+                                <Route exact key={idx.toString()} path={encodeURI(`/models/${elem.path}`)}>
                                     <App category="models" models={this.state.models}
-                                         modelDir={elem.name} path={elem.path}/>
+                                         modelDir={elem.path} path={elem.path}/>
                                 </Route>
                             )
                         })}
