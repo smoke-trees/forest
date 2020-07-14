@@ -169,7 +169,8 @@ class ModelPage extends React.Component {
                                     <br/><br/>
                                     <Box>
                                         <NotebookComponent isDesktop={this.props.isDesktop}
-                                                           modelDir={this.props.modelDir}/>
+                                                           modelDir={this.props.modelDir}
+                                                           setRedirect={this.props.setRedirect}/>
                                     </Box>
                                 </Grid>
                             </Grid>

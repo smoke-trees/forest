@@ -5,6 +5,7 @@ import {BasePath} from "../../contants";
 
 import "./notebook.scss";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 const styles = () => ({
     root: {
@@ -68,7 +69,7 @@ class NotebookComponent extends React.Component {
 
             const tags = () => {
                 return (
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} style={{width: "100%"}}>
                         {this.state.config.Tags.map((elem) => {
                             return (
                                 <Grid item>
@@ -82,9 +83,39 @@ class NotebookComponent extends React.Component {
                 )
             }
 
+            const publishers = () => {
+                const openLink = (url) => {
+                    const win = window.open(url, "__blank");
+                    if (win != null) {
+                        win.focus();
+                    }
+                }
+
+                return (
+                    <div>
+                        <span className="notebook-header" style={{position: "relative", top: "10px"}}>Publishers</span>
+                        <br/>
+                        <Grid container spacing={2} style={{width: "100%", position: "relative", marginTop: "10px", marginBottom: "10px"}}>
+                            {this.state.config.Publisher.map((elem) => {
+                                return (
+                                    <Grid item>
+                                        <Button style={{color: "#40AED1", borderColor: "#40AED1"}}
+                                                variant="outlined" onClick={() => openLink(elem[1])}>
+                                            <span className="notebook-publisher-text"> {elem[0]} </span>
+                                        </Button>
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                    </div>
+                )
+            }
+
             return (
                 <div className={this.classes.root}>
                     {tags()}
+                    <br/>
+                    {publishers()}
                     <br/>
                     {preprocessingHtml()}
                     <span className="notebook-header">Usage</span>
