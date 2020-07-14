@@ -4,6 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {BasePath} from "../../contants";
 
 import "./notebook.scss";
+import Grid from "@material-ui/core/Grid";
 
 const styles = () => ({
     root: {
@@ -50,12 +51,42 @@ class NotebookComponent extends React.Component {
                 <ProgressIndicatorComponent/>
             );
         } else {
+            const preprocessingHtml = () => {
+                if (this.state.preprocess === "404: Not Found") {
+                    return <div/>
+                } else {
+                    return (
+                        <div>
+                            <span className="notebook-header">Preprocessing stage</span>
+                            <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}
+                                 className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
+                            <br/>
+                        </div>
+                    )
+                }
+            }
+
+            const tags = () => {
+                return (
+                    <Grid container spacing={2}>
+                        {this.state.config.Tags.map((elem) => {
+                            return (
+                                <Grid item>
+                                    <div className="notebook-tags">
+                                        <span className="notebook-tag-text"> {elem} </span>
+                                    </div>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                )
+            }
+
             return (
                 <div className={this.classes.root}>
-                    <span className="notebook-header">Preprocessing stage</span>
-                    <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}
-                         className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
+                    {tags()}
                     <br/>
+                    {preprocessingHtml()}
                     <span className="notebook-header">Usage</span>
                     <div dangerouslySetInnerHTML={{__html: this.state.usage}}
                          className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
