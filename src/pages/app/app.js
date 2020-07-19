@@ -95,8 +95,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-
-
         window.addEventListener("resize", this.windowUpdater);
     }
 
@@ -105,7 +103,6 @@ class App extends React.Component {
     }
 
     desktop() {
-        console.log(this.props.modelDir);
         const {setRedirect} = this;
 
         const backgroundVectors = () => {
@@ -322,10 +319,7 @@ class App extends React.Component {
         if (this.state.redirect && this.props.history.location.pathname !== this.state.redirect) {
             let redirect = this.state.redirect;
             this.setRedirect("");
-
             this.props.history.push(redirect);
-
-            console.log(redirect);
 
             return <Redirect to={{pathname: redirect}}/>
         } else {

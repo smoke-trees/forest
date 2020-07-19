@@ -4,6 +4,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {BasePath} from "../../contants";
 
 import "./notebook.scss";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 const styles = () => ({
     root: {
@@ -50,12 +52,72 @@ class NotebookComponent extends React.Component {
                 <ProgressIndicatorComponent/>
             );
         } else {
+            const preprocessingHtml = () => {
+                if (this.state.preprocess === "404: Not Found") {
+                    return <div/>
+                } else {
+                    return (
+                        <div>
+                            <span className="notebook-header">Preprocessing stage</span>
+                            <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}
+                                 className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
+                            <br/>
+                        </div>
+                    )
+                }
+            }
+
+            const tags = () => {
+                return (
+                    <Grid container spacing={2} style={{width: "100%"}}>
+                        {this.state.config.Tags.map((elem) => {
+                            return (
+                                <Grid item>
+                                    <div className="notebook-tags">
+                                        <span className="notebook-tag-text"> {elem} </span>
+                                    </div>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                )
+            }
+
+            const publishers = () => {
+                const openLink = (url) => {
+                    const win = window.open(url, "__blank");
+                    if (win != null) {
+                        win.focus();
+                    }
+                }
+
+                return (
+                    <div>
+                        <span className="notebook-header" style={{position: "relative", top: "10px"}}>Publishers</span>
+                        <br/>
+                        <Grid container spacing={2} style={{width: "100%", position: "relative", marginTop: "10px", marginBottom: "10px"}}>
+                            {this.state.config.Publisher.map((elem) => {
+                                return (
+                                    <Grid item>
+                                        <Button style={{color: "#40AED1", borderColor: "#40AED1"}}
+                                                variant="outlined" onClick={() => openLink(elem[1])}>
+                                            <span className="notebook-publisher-text"> {elem[0]} </span>
+                                        </Button>
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                    </div>
+                )
+            }
+
             return (
                 <div className={this.classes.root}>
-                    <span className="notebook-header">Preprocessing stage</span>
-                    <div dangerouslySetInnerHTML={{__html: this.state.preprocess}}
-                         className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
+                    {tags()}
                     <br/>
+                    {publishers()}
+                    <br/>
+                    {preprocessingHtml()}
                     <span className="notebook-header">Usage</span>
                     <div dangerouslySetInnerHTML={{__html: this.state.usage}}
                          className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>

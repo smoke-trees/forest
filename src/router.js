@@ -39,7 +39,7 @@ class AppRouter extends React.Component {
                             return (
                                 <Route exact key={idx.toString()} path={encodeURI(`/models/${elem.path}`)}>
                                     <App category="models" models={this.state.models}
-                                         modelDir={elem.path} path={elem.path}/>
+                                         modelDir={elem.path.replace(" ", "%20")} path={elem.path}/>
                                 </Route>
                             )
                         })}
