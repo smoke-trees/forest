@@ -47,7 +47,7 @@ class AppRouter extends React.Component {
                         <Route exact path="/models" render={() => <App category="models" models={this.state.models}/>}/>
                         <Route exact path="/contributions" render={() => <App category="contributions"/>}/>
                         <Route exact path="/issues" render={() => <App category="issues"/>}/>
-                        <Route exact path="/" render={() => <App/>}/>
+                        <Route exact path="/" render={() => <App models={this.state.models}/>}/>
                     </Switch>
                 </BrowserRouter>
             )

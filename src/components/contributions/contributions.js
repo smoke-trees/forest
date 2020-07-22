@@ -5,7 +5,7 @@ import "./contributions.scss";
 class ContributionPage extends React.Component {
     desktop() {
         return (
-            <div style={{marginTop: "64px", marginLeft: "30px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
+            <div style={{marginTop: "64px", marginLeft: "calc(50% - 300px)", overflowY: "auto", height: "calc(100vh - 64px)"}}>
                 <br/>
                 <span className="contributions-body-title-header">
                     Contributions
@@ -13,7 +13,7 @@ class ContributionPage extends React.Component {
                 <br/>
                 <br/>
                 <br/>
-                <div style={{marginLeft: "40px"}}>
+                <div style={{marginLeft: "0px"}}>
                     <span className="contributions-body"> You can also contribute to our model-zoo, please follow these instructions: </span>
                     <br/>
                     <br/>
@@ -59,7 +59,7 @@ class ContributionPage extends React.Component {
 
                     </span>
                 </div>
-                <div style={{marginLeft: "40px", marginTop: "20px", width: "600px", height: "300px", overflow: "auto"}}>
+                <div style={{marginLeft: "0px", marginTop: "20px", width: "600px", height: "300px", overflow: "auto"}}>
                 <pre><code className="lang-json">{"{"}<br/>
                     <span
                         className="hljs-string">"Title"</span>: <span
