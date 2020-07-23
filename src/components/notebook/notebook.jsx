@@ -14,7 +14,6 @@ const styles = () => ({
     }
 });
 
-
 class NotebookComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -116,7 +115,7 @@ class NotebookComponent extends React.Component {
 
             const moreStuff = () => {
                 return (
-                    <div style={{width: "600px"}}>
+                    <div style={{width: "min(600px, 100%)"}}>
                         <span className="notebook-header" style={{position: "relative", top: "10px"}}>More Information</span>
                         <br/>
                         <Grid container spacing={2} style={{width: "100%", marginTop: "20px", marginLeft: "10px"}}>
