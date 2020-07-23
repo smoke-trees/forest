@@ -5,7 +5,7 @@ import "./issues.scss";
 class IssuePage extends React.Component {
     desktop() {
         return (
-            <div style={{marginTop: "64px", marginLeft: "calc(50% - 300px)", overflowY: "auto", height: "calc(100vh - 64px)"}}>
+            <div style={{ width: 'fit-content', margin: '0 auto', marginTop: "64px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
                 <br/>
                 <span className="issues-body-title-header">
                     Issues
