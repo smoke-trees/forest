@@ -269,55 +269,35 @@
 }
 
 .home-page-desktop-card-ht1 {
-  font-family: DM Sans, serif;
+  font-family: Source Sans Pro, serif;
   font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 26px;
-  /* identical to box height */
-
-  text-align: right;
-  letter-spacing: 0.05em;
-
-  color: #1F1F1F;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  color: #505050;
 }
 
 .home-page-desktop-card-ht2 {
-  font-family: DM Sans, serif;
+  font-family: Source Sans Pro, serif;
   font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 16px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
   text-align: justify;
-  letter-spacing: 0.05em;
-
-  color: #367D94;
+  letter-spacing: 0.01em;
+  color: #000000;
 }
 
 .home-page-desktop-card-ht3 {
-  font-family: DM Sans, serif;
+  font-family: Source Sans Pro, serif;
   font-style: normal;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 16px;
-  line-height: 14px;
-  /* identical to box height */
-
-  text-align: right;
-  letter-spacing: 0.05em;
-
-  color: #4B4B4B;
-}
-
-.model-grid-list {
-  position: absolute;
-  left: 600px;
-  top: 67px;
-  padding-top: 64px !important;
-  height: calc(100vh - 131px);
-
-  .MuiGridListTile-tile {
-    width: 360px;
-  }
+  line-height: 20px;
+  text-align: justify;
+  letter-spacing: 0.01em;
+  color: #40AED1;
 }
 
 .home-page-desktop-grid-list {
@@ -337,6 +317,10 @@
   border-radius: 16px;
   width: 260px;
   height: 332px;
+}
+
+.home-page-desktop-card-btn {
+  color: #8C8C8C !important;
 }
 
 

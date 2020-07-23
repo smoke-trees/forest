@@ -26,7 +26,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import {BasePath} from "../../contants";
 import ProgressIndicatorComponent from "../../components/progressIndicator/progressIndicator";
-import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import CardActions from "@material-ui/core/CardActions";
 
 const styles = () => ({});
 
@@ -41,10 +42,9 @@ const disableRippleTheme = createMuiTheme({
 class App extends React.Component {
     constructor(props) {
         super(props);
-
         this.classes = this.props.classes;
 
-        const mapToTabIndex = () => {
+        this.mapToTabIndex = () => {
             const cat = this.props.category;
             if (cat === "models") {
                 return 0;
@@ -60,7 +60,7 @@ class App extends React.Component {
         this.state = {
             desktop: {
                 tabBar: {
-                    value: mapToTabIndex()
+                    value: this.mapToTabIndex()
                 },
                 searchText: ""
             },
@@ -105,6 +105,7 @@ class App extends React.Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.windowUpdater);
+
         const loadModelInfo = async () => {
             let modelInfoMap = {};
 
@@ -126,6 +127,10 @@ class App extends React.Component {
 
     desktop() {
         const {setRedirect} = this;
+
+        if (this.state.desktop.tabBar.value !== this.mapToTabIndex()) {
+            this.setTabBar({value: this.mapToTabIndex()});
+        }
 
         const appBar = () => {
             const searchBar = () => {
@@ -187,7 +192,7 @@ class App extends React.Component {
         const body = () => {
             const topStuff = () => {
                 return (
-                    <div style={{marginTop: "128px", textAlign: "center"}}>
+                    <div style={{marginTop: "256px", textAlign: "center"}}>
                         <span className="home-page-desktop-top-text-ht1"> Introducing </span>
                         <br/>
                         <br/>
@@ -203,7 +208,10 @@ class App extends React.Component {
                         <br/>
                         <br/>
                         <button className="home-page-body-button"
-                                onClick={() => setRedirect("/models")}
+                                onClick={() => {
+                                    this.setTabBar({value: 0});
+                                    setRedirect("/models");
+                                }}
                                 style={{marginLeft: "auto", marginRight: "auto"}}>
 
                             Explore Zoo
@@ -213,7 +221,6 @@ class App extends React.Component {
             }
 
             const modelGrid = () => {
-
                 if (Object.entries(this.state.modelInfoMap).length === this.props.models.length) {
                     let items = searchByTags(this.props.models, this.state.modelInfoMap, this.props.searchText)
                         .map(model => {
@@ -230,20 +237,10 @@ class App extends React.Component {
                                             </span>
                                             <br/>
                                             <br/>
-                                            <Grid container spacing={2} style={{
-                                                width: "100%",
-                                                position: "absolute",
-                                                bottom: "20px",
-                                                padding: "5px"
-                                            }}>
-                                                {this.state.modelInfoMap[model.name]["Publisher"].map((elem) => {
-                                                    return (
-                                                        <Grid item>
-                                                            <span className="home-page-desktop-card-ht3"> {elem[0]} </span>
-                                                        </Grid>
-                                                    )
-                                                })}
-                                            </Grid>
+                                            <CardActions style={{position: "absolute", bottom: "10px", left: "10px"}}>
+                                                <Button className="home-page-desktop-card-btn"
+                                                        onClick={() => setRedirect(encodeURI(`/models/${model.path}`))}> View </Button>
+                                            </CardActions>
                                         </CardContent>
                                     </Card>
                                 </GridListTile>
@@ -253,7 +250,7 @@ class App extends React.Component {
                     items = items.slice(0, 6);
 
                     return (
-                        <div style={{marginTop: "30px"}}>
+                        <div style={{marginTop: "30px", marginBottom: "30px"}}>
                             <GridList cellHeight="360px" cellWidth="332px" className="home-page-desktop-grid-list">
                                 {items}
                             </GridList>
@@ -263,7 +260,6 @@ class App extends React.Component {
                     return <ProgressIndicatorComponent/>
                 }
             }
-
 
             if (this.props.category === undefined) {
                 return (
