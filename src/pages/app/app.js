@@ -384,7 +384,43 @@ class App extends React.Component {
         }
 
         const body = () => {
-            if (this.props.category === "models") {
+            const topStuff = () => {
+                return (
+                    <div style={{marginTop: "128px", textAlign: "center"}}>
+                        <span className="home-page-mobile-top-text-ht1"> Introducing </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-mobile-top-text-ht2">
+                            A collection of pre-trained models and some other line here
+                        </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-mobile-top-text-ht3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Urna dolor urna molestie quis magna. Sed purus.
+                        </span>
+                        <br/>
+                        <br/>
+                        <button className="home-page-body-button"
+                                onClick={() => {
+                                    this.setRedirect("/models");
+                                }}
+                                style={{marginLeft: "auto", marginRight: "auto"}}>
+
+                            Explore Zoo
+                        </button>
+                    </div>
+                )
+            }
+
+
+            if (this.props.category === undefined) {
+                return (
+                    <div style={{overflowY: "auto", height: "calc(100vh - 64px)"}}>
+                        {topStuff()}
+                    </div>
+                )
+            } else if (this.props.category === "models") {
                 return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
                                   modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
                                   setRedirect={this.setRedirect} drawerIsOpen={this.state.mobile.drawer.open}/>
