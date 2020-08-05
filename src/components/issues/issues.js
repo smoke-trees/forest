@@ -13,7 +13,7 @@ class IssuePage extends React.Component {
                 <br/>
                 <br/>
                 <br/>
-                <div style={{marginLeft: "40px"}}>
+                <div style={{marginLeft: "0px"}}>
                     <span className="issues-body" style={{justify: "left"}}>
                         <li style={{maxWidth: "600px", wordWrap: "break-word"}}>
                         If you run into any issues in using the model or the utility package please create the appropriate issue on our repo and label them.

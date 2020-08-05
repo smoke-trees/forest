@@ -14,7 +14,6 @@ const styles = () => ({
     }
 });
 
-
 class NotebookComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -52,6 +51,13 @@ class NotebookComponent extends React.Component {
                 <ProgressIndicatorComponent/>
             );
         } else {
+            const openLink = (url) => {
+                const win = window.open(url, "__blank");
+                if (win != null) {
+                    win.focus();
+                }
+            }
+
             const preprocessingHtml = () => {
                 if (this.state.preprocess === "404: Not Found") {
                     return <div/>
@@ -84,18 +90,14 @@ class NotebookComponent extends React.Component {
             }
 
             const publishers = () => {
-                const openLink = (url) => {
-                    const win = window.open(url, "__blank");
-                    if (win != null) {
-                        win.focus();
-                    }
-                }
+
 
                 return (
                     <div>
                         <span className="notebook-header" style={{position: "relative", top: "10px"}}>Publishers</span>
                         <br/>
-                        <Grid container spacing={2} style={{width: "100%", position: "relative", marginTop: "10px", marginBottom: "10px"}}>
+                        <Grid container spacing={2}
+                              style={{width: "100%", position: "relative", marginTop: "10px", marginBottom: "10px"}}>
                             {this.state.config.Publisher.map((elem) => {
                                 return (
                                     <Grid item>
@@ -111,6 +113,41 @@ class NotebookComponent extends React.Component {
                 )
             }
 
+            const moreStuff = () => {
+                return (
+                    <div style={{width: "min(600px, 100%)"}}>
+                        <span className="notebook-header" style={{position: "relative", top: "10px"}}>More Information</span>
+                        <br/>
+                        <Grid container spacing={2} style={{width: "100%", marginTop: "20px", marginLeft: "10px"}}>
+                            <Grid item>
+                                <div className="notebook-tags">
+                                    <span
+                                        className="notebook-tag-text"> {`Architecture: ${this.state.config.Architecture}`} </span>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className="notebook-tags">
+                                    <span
+                                        className="notebook-tag-text"> {`Problem Domain: ${this.state.config["Problem Domain"]}`} </span>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className="notebook-tags">
+                                    <span
+                                        className="notebook-tag-text"> {`Model Format: ${this.state.config["Model Format"]}`} </span>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className="notebook-tags">
+                                    <span
+                                        className="notebook-tag-text"> {`Language: ${this.state.config["Language"]}`} </span>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </div>
+                )
+            }
+
             return (
                 <div className={this.classes.root}>
                     {tags()}
@@ -121,6 +158,7 @@ class NotebookComponent extends React.Component {
                     <span className="notebook-header">Usage</span>
                     <div dangerouslySetInnerHTML={{__html: this.state.usage}}
                          className={this.props.isDesktop ? "notebook-component-container" : "notebook-component-container-mb"}/>
+                    {moreStuff()}
                 </div>
             );
         }

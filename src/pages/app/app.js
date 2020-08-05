@@ -19,6 +19,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import {ModelPage, ContributionPage, IssuePage} from "../../components";
 import {Redirect, withRouter} from "react-router-dom";
+import GridList from "@material-ui/core/GridList";
+import {searchByTags} from "../../utils/search";
+import GridListTile from "@material-ui/core/GridListTile";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import {BasePath} from "../../contants";
+import ProgressIndicatorComponent from "../../components/progressIndicator/progressIndicator";
+import Button from "@material-ui/core/Button";
+import CardActions from "@material-ui/core/CardActions";
 
 const styles = () => ({});
 
@@ -33,10 +42,9 @@ const disableRippleTheme = createMuiTheme({
 class App extends React.Component {
     constructor(props) {
         super(props);
-
         this.classes = this.props.classes;
 
-        const mapToTabIndex = () => {
+        this.mapToTabIndex = () => {
             const cat = this.props.category;
             if (cat === "models") {
                 return 0;
@@ -52,7 +60,7 @@ class App extends React.Component {
         this.state = {
             desktop: {
                 tabBar: {
-                    value: mapToTabIndex()
+                    value: this.mapToTabIndex()
                 },
                 searchText: ""
             },
@@ -62,6 +70,7 @@ class App extends React.Component {
                 }
             },
             isDesktop: !(isMobile || window.innerWidth < 1300),
+            modelInfoMap: {},
             redirect: ""
         }
 
@@ -96,6 +105,20 @@ class App extends React.Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.windowUpdater);
+
+        const loadModelInfo = async () => {
+            let modelInfoMap = {};
+
+            await this.props.models.map(async (model) => {
+                await fetch(encodeURI(`${BasePath}/${model.path}/result.json`))
+                    .then(async res => await res.json()).then(async config => {
+                        modelInfoMap[model.path] = config;
+                        await this.setState({modelInfoMap: modelInfoMap});
+                    })
+            });
+        }
+
+        loadModelInfo().then();
     }
 
     componentWillUnmount() {
@@ -105,13 +128,8 @@ class App extends React.Component {
     desktop() {
         const {setRedirect} = this;
 
-        const backgroundVectors = () => {
-            return (
-                <div>
-                    <div className="home-page-right-img-upper-rect"/>
-                    <div className="home-page-right-img-lower-rect"/>
-                </div>
-            )
+        if (this.state.desktop.tabBar.value !== this.mapToTabIndex()) {
+            this.setTabBar({value: this.mapToTabIndex()});
         }
 
         const appBar = () => {
@@ -172,13 +190,82 @@ class App extends React.Component {
         }
 
         const body = () => {
+            const topStuff = () => {
+                return (
+                    <div style={{marginTop: "256px", textAlign: "center"}}>
+                        <span className="home-page-desktop-top-text-ht1"> Introducing </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-desktop-top-text-ht2">
+                            A collection of pre-trained models and some other line here
+                        </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-desktop-top-text-ht3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Urna dolor urna molestie quis magna. Sed purus.
+                        </span>
+                        <br/>
+                        <br/>
+                        <button className="home-page-body-button"
+                                onClick={() => {
+                                    this.setTabBar({value: 0});
+                                    setRedirect("/models");
+                                }}
+                                style={{marginLeft: "auto", marginRight: "auto"}}>
+
+                            Explore Zoo
+                        </button>
+                    </div>
+                )
+            }
+
+            const modelGrid = () => {
+                if (Object.entries(this.state.modelInfoMap).length === this.props.models.length) {
+                    let items = searchByTags(this.props.models, this.state.modelInfoMap, this.props.searchText)
+                        .map(model => {
+                            return (
+                                <GridListTile style={{height: "fit-content", width: "fit-content", margin: "2px"}}>
+                                    <Card elevation={4} style={{margin: "5px"}} className="home-page-desktop-grid-card">
+                                        <CardContent>
+                                            <span
+                                                className="home-page-desktop-card-ht1"> {this.state.modelInfoMap[model.name]["Title"]} </span>
+                                            <br/>
+                                            <br/>
+                                            <span className="home-page-desktop-card-ht2">
+                                                {this.state.modelInfoMap[model.name]["Overview"]}
+                                            </span>
+                                            <br/>
+                                            <br/>
+                                            <CardActions style={{position: "absolute", bottom: "10px", left: "10px"}}>
+                                                <Button className="home-page-desktop-card-btn"
+                                                        onClick={() => setRedirect(encodeURI(`/models/${model.path}`))}> View </Button>
+                                            </CardActions>
+                                        </CardContent>
+                                    </Card>
+                                </GridListTile>
+                            )
+                        });
+
+                    items = items.slice(0, 6);
+
+                    return (
+                        <div style={{marginTop: "30px", marginBottom: "30px"}}>
+                            <GridList cellHeight="360px" cellWidth="332px" className="home-page-desktop-grid-list">
+                                {items}
+                            </GridList>
+                        </div>
+                    )
+                } else {
+                    return <ProgressIndicatorComponent/>
+                }
+            }
+
             if (this.props.category === undefined) {
                 return (
-                    <div>
-                        <SmokeForestLogo className="home-page-logo-large"/>
-                        <span className="home-page-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna dolor urna molestie quis magna. Sed purus.</span>
-                        <button className="home-page-body-button"> Forest </button>
-                        {backgroundVectors()}
+                    <div style={{overflowY: "auto", height: "calc(100vh - 64px)"}}>
+                        {topStuff()}
+                        {modelGrid()}
                     </div>
                 )
             } else if (this.props.category === "models") {
@@ -195,7 +282,9 @@ class App extends React.Component {
         return (
             <div>
                 {appBar()}
-                {body()}
+                <div style={{marginTop: "64px"}}>
+                    {body()}
+                </div>
             </div>
         )
     }
@@ -295,7 +384,43 @@ class App extends React.Component {
         }
 
         const body = () => {
-            if (this.props.category === "models") {
+            const topStuff = () => {
+                return (
+                    <div style={{marginTop: "128px", textAlign: "center"}}>
+                        <span className="home-page-mobile-top-text-ht1"> Introducing </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-mobile-top-text-ht2">
+                            A collection of pre-trained models and some other line here
+                        </span>
+                        <br/>
+                        <br/>
+                        <span className="home-page-mobile-top-text-ht3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Urna dolor urna molestie quis magna. Sed purus.
+                        </span>
+                        <br/>
+                        <br/>
+                        <button className="home-page-body-button"
+                                onClick={() => {
+                                    this.setRedirect("/models");
+                                }}
+                                style={{marginLeft: "auto", marginRight: "auto"}}>
+
+                            Explore Zoo
+                        </button>
+                    </div>
+                )
+            }
+
+
+            if (this.props.category === undefined) {
+                return (
+                    <div style={{overflowY: "auto", height: "calc(100vh - 64px)"}}>
+                        {topStuff()}
+                    </div>
+                )
+            } else if (this.props.category === "models") {
                 return <ModelPage isDesktop={this.state.isDesktop} models={this.props.models}
                                   modelDir={this.props.modelDir} searchText={this.state.desktop.searchText}
                                   setRedirect={this.setRedirect} drawerIsOpen={this.state.mobile.drawer.open}/>
