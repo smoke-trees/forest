@@ -23,7 +23,7 @@ class AppRouter extends React.Component {
     componentDidMount() {
         fetch('https://api.github.com/repos/smoke-trees/model-zoo/contents/').then(res => res.json())
             .then(data => {
-                this.setModels(data.filter(elem => elem.type === 'dir'));
+                this.setModels(data.filter(elem => (elem.type === 'dir' && elem.name !== ".github" && elem.name !== "tests")));
             });
     }
 
@@ -31,7 +31,6 @@ class AppRouter extends React.Component {
         if (this.state.models.length === 0) {
             return <ProgressIndicatorComponent/>
         } else {
-
             return (
                 <BrowserRouter>
                     <Switch>
