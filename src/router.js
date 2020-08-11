@@ -43,10 +43,10 @@ class AppRouter extends React.Component {
                             )
                         })}
 
-                        <Route exact path="/models" render={() => <App category="models" models={this.state.models} />} />
-                        <Route exact path="/contributions" render={() => <App category="contributions" models={this.state.models} />} />
-                        <Route exact path="/issues" render={() => <App category="issues" models={this.state.models} />} />
-                        <Route exact path="/" render={() => <App models={this.state.models} />} />
+                        <Route exact path="/forest/models" render={() => <App category="models" models={this.state.models} />} />
+                        <Route exact path="/forest/contributions" render={() => <App category="contributions" models={this.state.models} />} />
+                        <Route exact path="/forest/issues" render={() => <App category="issues" models={this.state.models} />} />
+                        <Route exact path="/forest" render={() => <App models={this.state.models} />} />
                     </Switch>
                 </BrowserRouter>
             )
