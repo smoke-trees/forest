@@ -1,4 +1,4 @@
-exports.searchByTags = (models, info, searchText) => {
+export const searchByTags = (models, info, searchText) => {
     if (searchText === undefined || searchText === "") {
         return models;
     }
