@@ -66,9 +66,9 @@ class ModelPage extends React.Component {
             const handleChange = (event, value) => {
                 this.setState({ tabValue: value });
                 if (value > 0) {
-                    this.props.setRedirect(encodeURI(`/models/${this.props.models[value - 1].path}`))
+                    this.props.setRedirect(encodeURI(`/forest/models/${this.props.models[value - 1].path}`))
                 } else {
-                    this.props.setRedirect("/models");
+                    this.props.setRedirect("/forest/models");
                 }
             }
 
@@ -136,7 +136,7 @@ class ModelPage extends React.Component {
                                         </CardContent>
                                         <CardActions style={{ position: "absolute", bottom: "32px" }}>
                                             <Button className="model-grid-list-item-btn"
-                                                onClick={() => this.props.setRedirect(encodeURI(`/models/${model.path}`))}> View </Button>
+                                                onClick={() => this.props.setRedirect(encodeURI(`/forest/models/${model.path}`))}> View </Button>
                                         </CardActions>
                                     </Card>
                                 </GridListTile>
@@ -220,7 +220,7 @@ class ModelPage extends React.Component {
                                     </CardContent>
                                     <CardActions>
                                         <Button className="model-grid-list-item-btn"
-                                            onClick={() => this.props.setRedirect(`/models/${model.path}`)}> View </Button>
+                                            onClick={() => this.props.setRedirect(`/forest/models/${model.path}`)}> View </Button>
                                     </CardActions>
                                 </Card>
                             </GridListTile>

@@ -36,7 +36,7 @@ class AppRouter extends React.Component {
                     <Switch>
                         {this.state.models.map((elem, idx) => {
                             return (
-                                <Route exact key={idx.toString()} path={encodeURI(`/models/${elem.path}`)}>
+                                <Route exact key={idx.toString()} path={encodeURI(`/forest/models/${elem.path}`)}>
                                     <App category="models" models={this.state.models}
                                         modelDir={elem.path.replace(" ", "%20")} path={elem.path} />
                                 </Route>
