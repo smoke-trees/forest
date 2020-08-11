@@ -16,7 +16,7 @@
     "react-router": "^5.2.0",
     "react-scripts": "3.4.1"
   },
-  "homepage": "https://smoketrees.dev",
+  "homepage": "https://smoketrees.dev/forest",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
