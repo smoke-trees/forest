@@ -201,12 +201,6 @@ class App extends React.Component {
                         </span>
                         <br/>
                         <br/>
-                        <span className="home-page-desktop-top-text-ht3">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Urna dolor urna molestie quis magna. Sed purus.
-                        </span>
-                        <br/>
-                        <br/>
                         <button className="home-page-body-button"
                                 onClick={() => {
                                     this.setTabBar({value: 0});
@@ -392,12 +386,6 @@ class App extends React.Component {
                         <br/>
                         <span className="home-page-mobile-top-text-ht2">
                             A collection of pre-trained models and some other line here
-                        </span>
-                        <br/>
-                        <br/>
-                        <span className="home-page-mobile-top-text-ht3">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Urna dolor urna molestie quis magna. Sed purus.
                         </span>
                         <br/>
                         <br/>

@@ -90,8 +90,6 @@ class NotebookComponent extends React.Component {
             }
 
             const publishers = () => {
-
-
                 return (
                     <div>
                         <span className="notebook-header" style={{position: "relative", top: "10px"}}>Publishers</span>
@@ -109,6 +107,19 @@ class NotebookComponent extends React.Component {
                                 )
                             })}
                         </Grid>
+                    </div>
+                )
+            }
+
+            const description = () => {
+                return (
+                    <div>
+                        <span className="notebook-header" style={{position: "relative", top: "10px"}}>Description</span>
+                        <br/>
+                        <br/>
+                        <span className="notebook-description-text" style={{width: "90%", display: "block", wordWrap: "break-word"}}>
+                            {this.state.config.Description}
+                        </span>
                     </div>
                 )
             }
@@ -153,6 +164,8 @@ class NotebookComponent extends React.Component {
                     {tags()}
                     <br/>
                     {publishers()}
+                    <br/>
+                    {description()}
                     <br/>
                     {preprocessingHtml()}
                     <span className="notebook-header">Usage</span>
