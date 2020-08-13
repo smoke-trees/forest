@@ -153,11 +153,11 @@ class App extends React.Component {
                 const handleChange = (event, value) => {
                     this.setTabBar({value: value});
                     if (value === 0) {
-                        setRedirect("/models");
+                        setRedirect("/forest/models");
                     } else if (value === 1) {
-                        setRedirect("/contributions");
+                        setRedirect("/forest/contributions");
                     } else if (value === 2) {
-                        setRedirect("/issues");
+                        setRedirect("/forest/issues");
                     }
                 }
 
@@ -204,7 +204,7 @@ class App extends React.Component {
                         <button className="home-page-body-button"
                                 onClick={() => {
                                     this.setTabBar({value: 0});
-                                    setRedirect("/models");
+                                    setRedirect("/forest/models");
                                 }}
                                 style={{marginLeft: "auto", marginRight: "auto"}}>
 
@@ -233,7 +233,7 @@ class App extends React.Component {
                                             <br/>
                                             <CardActions style={{position: "absolute", bottom: "10px", left: "10px"}}>
                                                 <Button className="home-page-desktop-card-btn"
-                                                        onClick={() => setRedirect(encodeURI(`/models/${model.path}`))}> View </Button>
+                                                        onClick={() => setRedirect(encodeURI(`/forest/models/${model.path}`))}> View </Button>
                                             </CardActions>
                                         </CardContent>
                                     </Card>
@@ -337,7 +337,7 @@ class App extends React.Component {
                     <List className="home-page-mobile-drawer-item-container">
                         <ListItem button className="home-page-mobile-drawer-item"
                                   onClick={() => {
-                                      this.setRedirect("/models");
+                                      this.setRedirect("/forest/models");
                                       this.setMobileDrawer({...this.state.mobile.drawer, open: false});
                                   }}>
                             <ListItemText> <span
@@ -391,7 +391,7 @@ class App extends React.Component {
                         <br/>
                         <button className="home-page-body-button"
                                 onClick={() => {
-                                    this.setRedirect("/models");
+                                    this.setRedirect("/forest/models");
                                 }}
                                 style={{marginLeft: "auto", marginRight: "auto"}}>
 
