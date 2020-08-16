@@ -197,7 +197,7 @@ class App extends React.Component {
                         <br/>
                         <br/>
                         <span className="home-page-desktop-top-text-ht2">
-                            A collection of pre-trained models and some other line here
+                        A collection of pre-trained models built, curated and maintained by SmokeTrees.
                         </span>
                         <br/>
                         <br/>
@@ -385,7 +385,7 @@ class App extends React.Component {
                         <br/>
                         <br/>
                         <span className="home-page-mobile-top-text-ht2">
-                            A collection of pre-trained models and some other line here
+                            A collection of pre-trained models built, curated and maintained by SmokeTrees.
                         </span>
                         <br/>
                         <br/>
