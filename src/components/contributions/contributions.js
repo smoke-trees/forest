@@ -119,7 +119,11 @@ class ContributionPage extends React.Component {
                         class="hljs-name">Output</span> shapes of the model (<span
                         class="hljs-name">type:list</span>(<span class="hljs-name"><span
                         class="hljs-builtin-name">list</span></span>)))
-                    <br/>{"}"}
+                    <br/>
+                    <br/><span className="hljs-string">"Description"</span>: <span
+                        className="hljs-string">"The MIT-BIH dataset has been used research into cardiac dynamics at more than 500 sites worldwide.\nThis model uses the Convolutional Neural Net Architecture on image data of shape [1,187,1]\nand then classifies the image into one of the five labels the dataset has been divided into.", (Model Description (type:str))</span>
+                    <br/>
+                    {"}"}
                     </code></pre>
                 </div>
             </div>
@@ -242,7 +246,11 @@ class ContributionPage extends React.Component {
                         class="hljs-name">Output</span> shapes of the model (<span
                         class="hljs-name">type:list</span>(<span class="hljs-name"><span
                         class="hljs-builtin-name">list</span></span>)))
-                    <br/>{"}"}
+                    <br/>
+                    <br/><span className="hljs-string">"Description"</span>: <span
+                        className="hljs-string">"The MIT-BIH dataset has been used research into cardiac dynamics at more than 500 sites worldwide.\nThis model uses the Convolutional Neural Net Architecture on image data of shape [1,187,1]\nand then classifies the image into one of the five labels the dataset has been divided into.", (Model Description (type:str))</span>
+                    <br/>
+                    {"}"}
                     </code></pre>
                 </div>
             </div>
