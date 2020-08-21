@@ -345,7 +345,7 @@ class App extends React.Component {
                             </ListItemText>
                         </ListItem>
                         <ListItem button className="home-page-mobile-drawer-item" onClick={() => {
-                            this.setRedirect("/contributions");
+                            this.setRedirect("/forest/contributions");
                             this.setMobileDrawer({...this.state.mobile.drawer, open: false});
                         }}>
                             <ListItemText> <span
@@ -353,7 +353,7 @@ class App extends React.Component {
                             </ListItemText>
                         </ListItem>
                         <ListItem button className="home-page-mobile-drawer-item" onClick={() => {
-                            this.setRedirect("/issues");
+                            this.setRedirect("/forest/issues");
                             this.setMobileDrawer({...this.state.mobile.drawer, open: false});
                         }}>
                             <ListItemText> <span
